@@ -468,6 +468,20 @@
   .camada-aba[data-state="active"] {
     color: var(--texto);
   }
+  /* Os textos das camadas dividem a mesma célula do grid, um em cima do
+     outro, e só o da aba ativa aparece. A área fica sempre com a altura do
+     texto mais longo, então trocar de aba não mexe em nada ao redor.
+     `visibility` e não `display`: o texto escondido continua ocupando
+     espaço, mas sai da leitura de tela e do foco do teclado. */
+  .camada-paineis {
+    display: grid;
+  }
+  .camada-paineis > [role="tabpanel"] {
+    grid-area: 1 / 1;
+  }
+  .camada-paineis > [data-state="inactive"] {
+    visibility: hidden;
+  }
   .camada-aba[data-state="active"] .camada-marca {
     background: var(--ponto);
     border-color: var(--ponto);

@@ -23,14 +23,20 @@ junta tudo num arquivo só, que abre em qualquer lugar.
 
 ## Antes de colocar no ar
 
-- [ ] **WhatsApp** em `src/config/contato.ts`. Sem ele, o botão abre o
-      WhatsApp e a pessoa escolhe o contato (bom para testar, ruim para vender).
-- [ ] **Promessas** em `src/dados/metodo.ts`: "30 minutos, sem custo", "preço
-      fechado", "pagamento acompanha as entregas", "o sistema é seu". Só deixe
-      o que você cumpre sempre.
-- [ ] **Laboratório**: a IVE aparece como "em desenvolvimento". Se não quiser
-      mostrar ainda, tire `<Laboratorio />` de `src/App.tsx`.
-- [ ] **Domínio** e, se quiser, e-mail e Instagram no mesmo `contato.ts`.
+- [x] **WhatsApp** em `src/config/contato.ts`.
+- [x] **Promessas** em `src/dados/metodo.ts`, revistas: entregas por etapa,
+      preço fechado para o que foi desenhado, o código feito para o projeto
+      fica com o cliente e o ajuste depois de no ar é um plano de
+      acompanhamento. Se alguma deixar de valer, mude lá antes de mudar na
+      prática.
+- [x] **Laboratório**: a IVE fica, como "em desenvolvimento".
+- [ ] **Domínio** no registro.br e, se quiser, e-mail e Instagram no mesmo
+      `contato.ts`.
+- [ ] **Imagem de prévia do link** (`og:image`), para o link aparecer com
+      imagem no WhatsApp e no LinkedIn.
+- [ ] **Hospedagem**: Cloudflare Pages ligada ao GitHub, com o comando
+      `pnpm build` e a pasta `dist`. O plano grátis da Vercel não permite uso
+      comercial.
 
 ## Onde mexer
 

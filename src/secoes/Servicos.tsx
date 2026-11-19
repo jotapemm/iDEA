@@ -16,6 +16,12 @@ import { CAMADAS, type IdCamada } from "@/dados/camadas";
  * Passar o mouse numa órbita (ou tocar nela) seleciona a camada; quem usa
  * teclado navega pela lista ao lado (Tabs do Radix, com setas). O canvas é
  * decorativo para leitor de tela: a lista tem o mesmo conteúdo.
+ *
+ * Os quatro textos ficam montados (forceMount), um em cima do outro, e só o
+ * da camada ativa aparece (ver .camada-paineis no index.css). Assim a altura
+ * da coluna é sempre a do texto mais longo, e trocar de camada não mexe no
+ * layout: sem isso, as órbitas, centralizadas na altura da coluna, subiam e
+ * desciam a cada clique.
  */
 export function Servicos() {
   const [ativo, setAtivo] = useState<IdCamada>("automacao");
@@ -55,19 +61,21 @@ export function Servicos() {
                   </TabsTrigger>
                 ))}
               </TabsList>
-              {CAMADAS.map((c) => (
-                <TabsContent key={c.id} value={c.id} className="border-t border-linha pt-7">
-                  <p className="max-w-[54ch] text-[18px] leading-relaxed text-texto">{c.texto}</p>
-                  <ul className="mt-6 grid gap-2.5 font-mono text-[13px] text-fraco sm:grid-cols-2">
-                    {c.exemplos.map((e) => (
-                      <li key={e} className="flex items-center gap-3">
-                        <span className="h-[5px] w-[5px] flex-none bg-apagado" aria-hidden="true" />
-                        {e}
-                      </li>
-                    ))}
-                  </ul>
-                </TabsContent>
-              ))}
+              <div className="camada-paineis">
+                {CAMADAS.map((c) => (
+                  <TabsContent key={c.id} value={c.id} forceMount className="border-t border-linha pt-7">
+                    <p className="max-w-[54ch] text-[18px] leading-relaxed text-texto">{c.texto}</p>
+                    <ul className="mt-6 grid gap-2.5 font-mono text-[13px] text-fraco sm:grid-cols-2">
+                      {c.exemplos.map((e) => (
+                        <li key={e} className="flex items-center gap-3">
+                          <span className="h-[5px] w-[5px] flex-none bg-apagado" aria-hidden="true" />
+                          {e}
+                        </li>
+                      ))}
+                    </ul>
+                  </TabsContent>
+                ))}
+              </div>
             </Tabs>
           </Revela>
         </div>
