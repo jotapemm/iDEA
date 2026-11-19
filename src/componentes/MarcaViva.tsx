@@ -1,23 +1,42 @@
 /**
  * A marca grande do rodapé, contando a própria história.
  *
- * O pingo sai do "i", pula por cima do D, do E e do A, e pousa no fim como
- * ponto final. Enquanto isso um pingo novo nasce no "i". É a frase da marca
- * em dois segundos e meio: a ideia começa num ponto e termina em ponto
- * final.
+ * Primeiro o ponto final da vez anterior cai e sai pela borda de baixo: a
+ * ideia entregue sai de cena. Aí o pingo sai do "i", pula por cima do D, do
+ * E e do A, e pousa no fim como o novo ponto final, enquanto um pingo novo
+ * nasce no "i". É a frase da marca em menos de três segundos: a ideia
+ * começa num ponto, termina em ponto final, e a próxima já está nascendo.
  *
  * Toca uma vez quando o rodapé aparece, e de novo a cada vez que o ponteiro
  * passa por cima. Com menos movimento, fica parada.
  *
  * As posições são MEDIDAS na hora de cada salto (getBoundingClientRect), e
  * não chumbadas: o tamanho da logo acompanha a largura da tela, e as letras
- * dependem da fonte que de fato carregou.
+ * dependem da fonte que de fato carregou. A queda também é medida: ela vai
+ * até a borda da primeira caixa que corta o que passa dela (overflow), que
+ * no rodapé é a moldura da logo.
  */
 import { useCallback, useEffect, useRef } from "react";
 
-const DURACAO = 2400;
+const DURACAO = 2400; // a viagem do pingo, do "i" até virar ponto final
+const CAI = 480; // a queda do ponto final antigo
+const ESTICA = 1.2; // quanto o ponto alonga na queda, com a velocidade
+// A viagem começa aos 400ms e ainda passa os primeiros 6% parada no "i":
+// o pingo só decola depois que o ponto antigo sumiu pela borda.
+const ESPERA = 400;
 const SUBIDA = "cubic-bezier(.2,.65,.4,1)"; // desacelera até o alto do salto
 const QUEDA = "cubic-bezier(.55,0,.85,.35)"; // acelera na descida
+
+/** A borda de baixo da primeira caixa acima de `el` que corta o que passa dela. */
+function bordaQueCorta(el: HTMLElement): number {
+  for (let caixa = el.parentElement; caixa; caixa = caixa.parentElement) {
+    const cs = getComputedStyle(caixa);
+    if (cs.overflowY !== "visible") {
+      return caixa.getBoundingClientRect().bottom - parseFloat(cs.borderBottomWidth);
+    }
+  }
+  return window.innerHeight;
+}
 
 export function MarcaViva({ tamanho, className = "" }: { tamanho: string; className?: string }) {
   const raiz = useRef<HTMLSpanElement>(null);
@@ -77,9 +96,17 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
     vi.style.left = `${P.left - R.left}px`;
     vi.style.top = `${P.top - R.top}px`;
 
+    // Até onde o ponto antigo cai: até o topo dele passar da borda que corta.
+    // Ele alonga a partir da base, então o topo fica ESTICA vezes a altura
+    // acima dela.
+    const queda = bordaQueCorta(r) - F.bottom + F.height * ESTICA;
+    const total = ESPERA + DURACAO;
+    const em = (ms: number) => ms / total; // tempo em ms → posição na linha do tempo inteira
+
     rodando.current = true;
     const pousa = 0.9;
-    vi.animate(quadros, { duration: DURACAO });
+    const viagem = { duration: DURACAO, delay: ESPERA };
+    vi.animate(quadros, viagem);
     vi.animate(
       [
         { offset: 0, opacity: 1 },
@@ -87,7 +114,7 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
         { offset: pousa + 0.001, opacity: 0 },
         { offset: 1, opacity: 0 },
       ],
-      { duration: DURACAO },
+      viagem,
     );
     // O pingo some do "i" e renasce no fim, crescendo de baixo.
     pi.animate(
@@ -97,17 +124,21 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
         { offset: pousa - 0.039, opacity: 1, transform: "scale(0)" },
         { offset: 1, opacity: 1, transform: "scale(1)" },
       ],
-      { duration: DURACAO, easing: "linear" },
+      { ...viagem, easing: "linear" },
     );
-    // O ponto final só existe quando a ideia chega nele.
+    // O ponto final antigo cai, esticando com a velocidade, e sai pela borda.
+    // Lá embaixo ele volta ao lugar já invisível, e só reaparece quando a
+    // ideia chega nele, achatando no pouso.
     const pf = po.animate(
       [
-        { offset: 0, transform: "scale(0)" },
-        { offset: pousa, transform: "scale(0)" },
-        { offset: pousa + 0.035, transform: "scale(1.35, 0.7)" },
-        { offset: 1, transform: "scale(1)" },
+        { offset: 0, transform: "translateY(0px) scale(1, 1)", easing: QUEDA },
+        { offset: em(CAI), transform: `translateY(${queda}px) scale(${1 / ESTICA}, ${ESTICA})` },
+        { offset: em(CAI), transform: "translateY(0px) scale(0, 0)" },
+        { offset: em(ESPERA + pousa * DURACAO), transform: "translateY(0px) scale(0, 0)" },
+        { offset: em(ESPERA + (pousa + 0.035) * DURACAO), transform: "translateY(0px) scale(1.35, 0.7)" },
+        { offset: 1, transform: "translateY(0px) scale(1, 1)" },
       ],
-      { duration: DURACAO },
+      { duration: total },
     );
     pf.onfinish = pf.oncancel = () => {
       rodando.current = false;
