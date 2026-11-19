@@ -17,6 +17,7 @@
  * no rodapé é a moldura da logo.
  */
 import { useCallback, useEffect, useRef } from "react";
+import { alinharBaseAoPixel } from "@/lib/baseNoPixel";
 
 const DURACAO = 2400; // a viagem do pingo, do "i" até virar ponto final
 const CAI = 480; // a queda do ponto final antigo
@@ -45,6 +46,11 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
   const ponto = useRef<HTMLSpanElement>(null);
   const viajante = useRef<HTMLSpanElement>(null);
   const rodando = useRef(false);
+  // A linha de base num pixel exato, como no cabeçalho (ver lib/baseNoPixel.ts).
+  useEffect(() => {
+    const el = raiz.current;
+    return el ? alinharBaseAoPixel(el) : undefined;
+  }, []);
 
   const lancar = useCallback(() => {
     const r = raiz.current;
