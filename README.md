@@ -104,9 +104,10 @@ no estado final.
 - **Nada fica invisível esperando animação.** O `<Revela>` só anima blocos que
   ainda estão FORA da tela; o estado de repouso é sempre visível. Miniatura de
   link, leitor de tela e navegador sem JS veem o texto inteiro.
-- **A logo mede a fonte real.** `src/lib/medirMarca.ts` mede o "ı" da Archivo
-  e posiciona o pingo pela espessura exata da haste, em `em`, para valer em
-  qualquer tamanho.
+- **O "i" da logo é desenhado.** `src/lib/medirMarca.ts` mede o "ı" e o "D"
+  da Archivo: a haste e o pingo saem com a espessura da haste da fonte, e o
+  "i" inteiro, do pé ao topo do pingo, fica com a altura do D. Tudo em `em`,
+  para valer em qualquer tamanho.
 - **TypeScript 7 não aceita `baseUrl`.** O alias `@/` funciona só com `paths`
   (`tsconfig.app.json`).
 - **Parcel precisa de `packageExports: true`** (no `package.json`) para achar

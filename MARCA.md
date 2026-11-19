@@ -29,6 +29,11 @@ pousar no lugar dele: é a história da marca em menos de três segundos.
 O quadrado também é um pixel, a menor unidade de software. E ele veio da
 logo da IVE, que já tinha o "i" com o pingo quadrado.
 
+**Construção do "i":** ele é desenhado, não digitado. A haste e o pingo têm a
+espessura da haste da fonte, e o "i" inteiro, do pé ao topo do pingo, tem a
+altura das maiúsculas: o topo do pingo alinha com o topo do D. O vão entre o
+pingo e a haste é meia espessura.
+
 **Regra de ouro:** o ponto é a ÚNICA coisa colorida. Ele aparece na logo, no
 fim de cada título afirmativo, nos marcadores, no cursor do terminal e no
 foco do teclado. Todo o resto é branco sobre preto.
