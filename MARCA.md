@@ -22,9 +22,9 @@ A marca é `iDEA.`, com duas peças quadradas e roxas:
 - o **pingo** do "i", que é a ideia no começo, a faísca;
 - o **ponto final**, que é a mesma ideia no fim, entregue.
 
-São a mesma peça em dois momentos. No rodapé do site, o pingo pula por cima
-do D, do E e do A e pousa como ponto final: é a história da marca em dois
-segundos e meio.
+São a mesma peça em dois momentos. No rodapé do site, o ponto final da vez
+anterior cai e sai pela borda, e o pingo pula por cima do D, do E e do A até
+pousar no lugar dele: é a história da marca em menos de três segundos.
 
 O quadrado também é um pixel, a menor unidade de software. E ele veio da
 logo da IVE, que já tinha o "i" com o pingo quadrado.
