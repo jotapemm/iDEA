@@ -81,7 +81,7 @@ Produto pode ter personalidade própria. A casa não muda de roupa.
 | Títulos | Archivo, estreita (largura 78–86%) e pesada (720–760) |
 | Texto | Archivo, largura normal |
 | Voz técnica | JetBrains Mono: rótulos, números, terminal |
-| Forma | o quadrado. Cantos retos em tudo |
+| Forma | o quadrado, e o cubo quando a cena é 3D. Cantos retos em tudo |
 | Movimento | pontos que se organizam, ondas que se espalham, a ideia que anda até virar ponto final. Sempre respeitando quem pede menos movimento |
 
 Os valores exatos moram em `src/index.css` (bloco `:root`). Mudou lá, muda o
