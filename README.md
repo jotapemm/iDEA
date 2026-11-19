@@ -39,6 +39,7 @@ junta tudo num arquivo só, que abre em qualquer lugar.
 | WhatsApp, e-mail, Instagram | `src/config/contato.ts` |
 | Os sintomas do diagnóstico | `src/dados/sintomas.ts` |
 | O que a iDEA faz (as órbitas) | `src/dados/camadas.ts` |
+| O desenho das órbitas, em 3D | `src/componentes/telas/Orbitas.tsx` |
 | As rotinas do terminal | `src/dados/cenarios.ts` |
 | Passos do método e compromissos | `src/dados/metodo.ts` |
 | Os ramos do formulário | `src/dados/ramos.ts` |
@@ -75,7 +76,7 @@ por ela.
 ## As cenas de pontos
 
 `src/componentes/telas/pontos.ts` é o mesmo motor da landing da IVE (baldes de
-opacidade, Path2D, pausa fora da tela, mola do cursor). Duas cenas usam ele:
+opacidade, Path2D, pausa fora da tela, mola do cursor). Três cenas usam ele:
 
 - **Plano** (hero). Um chão de pontos em perspectiva, sem biblioteca 3D: um
   ponto do plano em (u, z) vai para a tela em `x = centro + u·f/z`,
@@ -83,9 +84,13 @@ opacidade, Path2D, pausa fora da tela, mola do cursor). Duas cenas usam ele:
   partir da ideia (o quadrado roxo), que depois toca o plano e solta ondas. Um
   clique solta uma ideia nova. Abaixo de 1024px a cena desce para baixo do
   texto e a câmera muda junto.
+- **Órbitas** (O que fazemos). O sistema da automação visto um pouco de lado:
+  cubos girando em órbitas de pontos e a IA numa órbita inclinada, tudo
+  pintado do mais longe para o mais perto. A camada ativa vem das abas ao
+  lado, e o mouse em cima de uma órbita escolhe a camada.
 - **Esfera** (Laboratório). Porte direto da esfera da IVE.
 
-Com "reduzir movimento" ligado no sistema, as duas desenham um quadro só, já
+Com "reduzir movimento" ligado no sistema, as três desenham um quadro só, já
 no estado final.
 
 ## Decisões que valem saber
@@ -106,6 +111,9 @@ no estado final.
 - **Teste visual com a aba escondida engana.** Navegador não roda
   `requestAnimationFrame` em aba oculta: o plano fica parado no caos do
   primeiro quadro. Não é bug.
+- **Na pasta do OneDrive, o Vite às vezes demora a ver um arquivo salvo.** Se
+  uma mudança não aparecer no localhost, espere uns segundos ou recarregue a
+  página.
 
 ## Estrutura
 
@@ -118,7 +126,7 @@ src/
 ├── estado/                a conversa que atravessa a página
 ├── lib/                   mensagem, medidas da marca, formatação
 ├── componentes/           cabeçalho, rodapé, marca, ponto final, revela
-│   └── telas/             motor de pontos, plano e esfera
+│   └── telas/             motor de pontos, plano, órbitas e esfera
 ├── components/ui/         slider e tabs do shadcn/ui (Radix)
 └── secoes/                uma por seção da página
 ```
