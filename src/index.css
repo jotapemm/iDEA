@@ -448,45 +448,10 @@
     color: var(--texto);
   }
 
-  /* --- órbita ---------------------------------------------------------- */
+  /* --- camadas -------------------------------------------------------- */
 
-  /* A órbita é uma fila de pontos quadrados: traço de 2 com folga de 6, e
-     ponta quadrada para cada traço virar um quadradinho. */
-  .orbita-anel {
-    fill: none;
-    stroke: #45455a;
-    stroke-width: 2;
-    stroke-linecap: square;
-    stroke-dasharray: 2 6;
-    transition: stroke 0.3s ease;
-  }
-  .orbita-anel.ativo {
-    stroke: var(--texto);
-  }
-  .orbita-alvo {
-    fill: none;
-    stroke: transparent;
-    stroke-width: 44;
-    cursor: pointer;
-    pointer-events: stroke;
-  }
-  .orbita-rotulo {
-    font-family: var(--fonte-mono);
-    font-size: 12px;
-    fill: var(--apagado);
-    transition: fill 0.3s ease;
-  }
-  .orbita-rotulo.ativo {
-    fill: var(--texto);
-  }
-  .orbita-gira {
-    animation: girar var(--dur, 60s) linear infinite;
-  }
-  .orbita-gira.contra {
-    animation-direction: reverse;
-  }
-
-  /* A lista de camadas ao lado da órbita. */
+  /* A lista de camadas ao lado das órbitas. As órbitas são um canvas, e o
+     visual delas mora em componentes/telas/Orbitas.tsx. */
   .camada-aba {
     display: flex;
     align-items: baseline;
@@ -799,18 +764,11 @@
   }
 }
 
-@keyframes girar {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   .surge,
-  .orbita-gira,
   .cursor,
   .estado.rodando::before {
     animation: none !important;
