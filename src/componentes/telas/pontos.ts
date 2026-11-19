@@ -13,6 +13,11 @@
  *   quando a pessoa pediu menos movimento, em vez do caos do quadro zero.
  * - A cena pode ter `tocar(x, y)`: um clique no canvas. É o que deixa
  *   "soltar uma ideia" no plano.
+ * - A cena redesenha sob pedido: com o evento "redesenhar" no canvas e
+ *   quando as fontes terminam de chegar. Sem laço (menos movimento), é assim
+ *   que uma cena parada responde ao que muda fora dela, como a camada ativa
+ *   das Órbitas, e que um texto pintado no canvas troca a fonte de reserva
+ *   pela de verdade.
  *
  * As duas decisões de desempenho seguem valendo (ver Baldes.pintar):
  * agrupar pontos em 7 baldes de opacidade e pintar cada balde com um único
@@ -169,6 +174,15 @@ export function useTela(fabrica: (ponteiro: Ponteiro, opcoes: Opcoes) => Cena) {
 
     medir();
 
+    let viva = true;
+    const redesenhar = () => {
+      if (!viva || !larg || !alt) return;
+      ctx.clearRect(0, 0, larg, alt);
+      cena.quadro(ctx, tAcum, larg, alt);
+    };
+    cv.addEventListener("redesenhar", redesenhar);
+    document.fonts.ready.then(redesenhar);
+
     // ResizeObserver e não window.resize: a tela pode mudar de tamanho sem a
     // janela mudar (a coluna do grid encolhe quando o texto ao lado cresce).
     const ro = new ResizeObserver(medir);
@@ -225,7 +239,13 @@ export function useTela(fabrica: (ponteiro: Ponteiro, opcoes: Opcoes) => Cena) {
     }
 
     // Com menos movimento, o quadro que `medir()` pintou é o quadro final.
-    if (parado) return () => ro.disconnect();
+    if (parado) {
+      return () => {
+        viva = false;
+        ro.disconnect();
+        cv.removeEventListener("redesenhar", redesenhar);
+      };
+    }
 
     /* --- laço -------------------------------------------------------- */
 
@@ -270,9 +290,11 @@ export function useTela(fabrica: (ponteiro: Ponteiro, opcoes: Opcoes) => Cena) {
     quadro = requestAnimationFrame(passo);
 
     return () => {
+      viva = false;
       cancelAnimationFrame(quadro);
       io.disconnect();
       ro.disconnect();
+      cv.removeEventListener("redesenhar", redesenhar);
       cv.removeEventListener("pointermove", aoMover);
       cv.removeEventListener("pointerleave", aoSair);
       cv.removeEventListener("pointerdown", aoDescer);
