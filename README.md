@@ -108,6 +108,11 @@ no estado final.
   da Archivo: a haste e o pingo saem com a espessura da haste da fonte, e o
   "i" inteiro, do pé ao topo do pingo, fica com a altura do D. Tudo em `em`,
   para valer em qualquer tamanho.
+- **A marca acerta o pixel.** O navegador arredonda a linha de base do texto
+  e as caixas da marca (haste, pingo, ponto) cada uma por conta própria. Com
+  zoom de 90%, o pingo saía do topo do D. `src/lib/baseNoPixel.ts` desloca a
+  marca inteira pela fração que falta para a linha de base cair num pixel
+  exato.
 - **TypeScript 7 não aceita `baseUrl`.** O alias `@/` funciona só com `paths`
   (`tsconfig.app.json`).
 - **Parcel precisa de `packageExports: true`** (no `package.json`) para achar
