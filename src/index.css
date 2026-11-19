@@ -44,7 +44,7 @@
   /* Valores de reserva. src/lib/medirMarca.ts mede a fonte de verdade e
      reescreve estes quatro, então o pingo tem exatamente a espessura da
      haste do "i" mesmo se a fonte mudar ou cair no fallback. */
-  --i-xh: 0.53em; /* altura da haste do "ı" (altura-x) */
+  --i-cap: 0.69em; /* altura das maiúsculas: o topo do D e o do pingo */
   --i-haste: 0.17em; /* espessura da haste = lado do pingo */
   --i-esq: 0.05em; /* lateral vazia à esquerda do glifo */
   --i-avanco: 0.27em; /* quanto o glifo empurra o próximo */
@@ -234,14 +234,19 @@
   }
 
   /*
-   * O pingo do "i".
+   * O "i" da marca é desenhado, e não digitado: uma haste e o pingo, os dois
+   * com a espessura da haste do "ı" da fonte (medida em lib/medirMarca.ts).
+   * Desenhado, ele pode ter a altura que a marca pede: do pé da haste ao
+   * topo do pingo, a altura das maiúsculas. O topo do pingo alinha com o
+   * topo do D, e o vão entre os dois é meia espessura, a mesma proporção do
+   * favicon.
    *
-   * O "i" da marca é o glifo "ı" (i sem pingo) da própria fonte, com um
-   * quadrado no lugar do pingo. O quadrado entra DEPOIS do glifo, com avanço
-   * zero (margem negativa do tamanho dele) e volta para cima da haste com
-   * `left`. `vertical-align` com comprimento sobe a base do quadrado até a
-   * altura-x mais um vão.
+   * A haste repete o espaço do glifo da fonte (a lateral vazia à esquerda e
+   * o avanço), então a distância até o D é a mesma da tipografia. O pingo
+   * volta para cima da haste com margem negativa, e `vertical-align` com
+   * comprimento sobe a base dele até a altura certa.
    */
+  .marca-haste,
   .marca-pingo,
   .marca-ponto,
   .marca-viajante {
@@ -251,11 +256,16 @@
     background: var(--ponto);
   }
 
+  .marca-haste {
+    height: calc(var(--i-cap) - var(--i-haste) * 1.5);
+    margin-left: var(--i-esq);
+    background: currentColor;
+  }
+
   .marca-pingo {
-    position: relative;
-    left: calc(var(--i-esq) - var(--i-avanco) - var(--marca-ls));
-    margin-right: calc(-1 * var(--i-haste));
-    vertical-align: calc(var(--i-xh) + var(--i-haste) * 0.62);
+    margin-left: calc(-1 * var(--i-haste));
+    margin-right: calc(var(--i-avanco) - var(--i-esq) - var(--i-haste) + var(--marca-ls));
+    vertical-align: calc(var(--i-cap) - var(--i-haste));
     transform-origin: 50% 100%;
   }
 
