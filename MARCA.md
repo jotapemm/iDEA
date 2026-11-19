@@ -41,7 +41,7 @@ foco do teclado. Todo o resto é branco sobre preto.
 | **Que** | perdem horas com tarefas repetidas entre planilhas, portais, PDFs, e-mails e sistemas que não conversam |
 | **A iDEA** | constrói automações sob medida e, quando precisa, o sistema web ou o app em volta delas |
 | **Diferente de** | software pronto (que obriga a empresa a mudar o processo), agências (que vendem site) e ferramentas sem código (que não chegam em portal do governo, PDF e sistema antigo) |
-| **Porque** | começa pelo processo real, entrega toda semana, tem preço fechado e sigilo, e o sistema fica com o cliente |
+| **Porque** | começa pelo processo real, entrega em etapas curtas, tem preço fechado e sigilo, e o que é feito para o cliente fica com ele |
 
 ### Automação no centro
 
