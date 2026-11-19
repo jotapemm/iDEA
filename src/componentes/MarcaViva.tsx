@@ -171,7 +171,7 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
       onPointerEnter={lancar}
       onClick={lancar}
     >
-      <span aria-hidden="true">ı</span>
+      <span className="marca-haste" aria-hidden="true" />
       <span ref={pingo} className="marca-pingo" aria-hidden="true" />
       {["D", "E", "A"].map((l, i) => (
         <span
