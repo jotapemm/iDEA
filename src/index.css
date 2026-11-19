@@ -271,6 +271,12 @@
    * (ver lib/seguirPonteiro.ts) e o CSS cresce o círculo dali. Aqui o
    * círculo anima `transform: scale()`, que a GPU compõe sem refazer layout.
    *
+   * Botão não tem borda. O `overflow: hidden` corta a onda na borda de
+   * DENTRO, e uma borda de 1px sobrava em volta dela: um aro branco no
+   * hover. O contorno do vazado é uma sombra interna, que é pintada junto
+   * com o fundo do botão e, por isso, fica por baixo da onda. Ela cobre o
+   * fio enquanto cresce.
+   *
    * Cantos retos em tudo: a forma da marca é o quadrado.
    */
   .botao {
@@ -283,16 +289,13 @@
     gap: 10px;
     height: 50px;
     padding: 0 24px;
-    border: 1px solid transparent;
     font-family: var(--fonte-texto);
     font-size: 15.5px;
     font-weight: 620;
     letter-spacing: -0.005em;
     white-space: nowrap;
     cursor: pointer;
-    transition:
-      color 0.25s ease,
-      border-color 0.25s ease;
+    transition: color 0.25s ease;
   }
   .botao::before {
     content: "";
@@ -326,18 +329,17 @@
     color: #fff;
   }
 
-  /* Vazado: só o contorno, e o branco inunda. */
+  /* Vazado: só o contorno, e o branco inunda por cima dele. */
   .botao-vazado {
     background: transparent;
     color: var(--texto);
-    border-color: var(--linha-forte);
+    box-shadow: inset 0 0 0 1px var(--linha-forte);
   }
   .botao-vazado::before {
     background: var(--texto);
   }
   .botao-vazado:hover {
     color: var(--tinta);
-    border-color: var(--texto);
   }
 
   .botao-pequeno {
@@ -641,12 +643,41 @@
 
   /* --- manifesto ------------------------------------------------------- */
 
+  /*
+   * O trilho e o palco (ver Manifesto.tsx). O trilho tem duas telas e meia
+   * de altura e o palco, uma. O palco gruda no topo (sticky) e fica parado
+   * enquanto o trilho passa por baixo: é uma tela e meia de rolagem com a
+   * página parada, e é nela que o texto acende.
+   *
+   * Só fixa onde o texto cabe na tela e onde há movimento. Fora disso o
+   * palco é uma seção comum, com o respiro de .secao.
+   */
+  @media (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+    .manifesto-trilho {
+      height: 250vh;
+      height: 250svh;
+    }
+    .manifesto-palco {
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      height: 100svh;
+      /* o cabeçalho fixo cobre o topo: o texto centraliza no que sobra */
+      padding-block: var(--cabecalho) 0;
+    }
+  }
+
   .manifesto {
     --p: 1;
     font-family: var(--fonte-titulo);
     font-weight: 640;
     font-stretch: 88%;
     font-size: clamp(2rem, 4.6vw, 3.9rem);
+    /* 7svh: em tela baixa a letra diminui, para o texto caber no palco */
+    font-size: clamp(2rem, min(4.6vw, 7svh), 3.9rem);
     line-height: 1.1;
     letter-spacing: -0.03em;
   }
@@ -655,6 +686,17 @@
   .manifesto-palavra {
     opacity: clamp(0.2, calc(var(--p) * (var(--n) + 3) - var(--i) - 1.5), 1);
     transition: opacity 0.15s linear;
+  }
+  /* O ponto final só pousa depois que a última palavra acende. Enquanto o
+     texto acende (.acendendo), ele espera escondido; quando entra, passa um
+     pouco do tamanho e volta, como quem chega. */
+  .manifesto .ponto-final {
+    transform-origin: 50% 100%;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .manifesto.acendendo .ponto-final {
+    transform: scale(0);
+    transition: transform 0.2s ease;
   }
 
   /* --- formulário ------------------------------------------------------ */
