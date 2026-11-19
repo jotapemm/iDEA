@@ -6,8 +6,9 @@
  * no fim ela é o ponto final, o problema resolvido e entregue. Daí a frase
  * da marca: ideias com ponto final.
  *
- * O "i" é o glifo "ı" (sem pingo) da fonte, com o quadrado posicionado por
- * medidas da fonte real (ver lib/medirMarca.ts e .marca-pingo no CSS).
+ * O "i" é desenhado, e não digitado: haste e pingo com a espessura da haste
+ * da fonte, e do pé ao topo do pingo a altura do D (ver lib/medirMarca.ts e
+ * .marca-haste no CSS).
  */
 export function Marca({ tamanho = 22, className = "" }: { tamanho?: number | string; className?: string }) {
   return (
@@ -17,7 +18,7 @@ export function Marca({ tamanho = 22, className = "" }: { tamanho?: number | str
       role="img"
       aria-label="iDEA."
     >
-      <span aria-hidden="true">ı</span>
+      <span className="marca-haste" aria-hidden="true" />
       <span className="marca-pingo" aria-hidden="true" />
       <span aria-hidden="true">DEA</span>
       <span className="marca-ponto" aria-hidden="true" />
