@@ -1,0 +1,780 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Identidade da iDEA.
+ *
+ * Layout: um documento técnico em preto. Rótulos em mono na margem, títulos
+ * grandes alinhados à esquerda, e um plano de pontos sangrando por baixo do
+ * hero.
+ *
+ * Uma regra manda em tudo: a única coisa colorida da página é o PONTO, o
+ * pingo quadrado do "i" da marca. Ele aparece na logo, no fim de cada título,
+ * nos marcadores, no cursor do terminal e no foco do teclado. O resto é
+ * branco sobre preto, que é a identidade que a IVE já tinha: ponto branco no
+ * escuro. A IVE é um produto e pode ser expressiva (o degradê roxo animado é
+ * dela); a iDEA é a casa, e fala mais baixo.
+ *
+ * A página é escura de propósito e só escura. Não há tema claro para manter.
+ */
+
+:root {
+  /* --- cor ------------------------------------------------------------- */
+  --fundo: #050509; /* quase preto, puxado para o azul do roxo */
+  --fundo-alto: #0b0b12; /* painéis, terminal, caixas */
+  --texto: #f2f2f7;
+  --fraco: #a3a3b3; /* texto de apoio: 8:1 sobre o fundo */
+  --apagado: #7f7f92; /* rótulos e legendas: 5:1, o mínimo para texto pequeno */
+  --linha: #1b1b26; /* fios e separadores */
+  --linha-forte: #2c2c3b; /* bordas de controles */
+  --ponto: #8257f5; /* a marca. O mesmo roxo do --acento da IVE */
+  --ponto-claro: #a08cff; /* o ponto quando precisa virar texto (7,5:1) */
+  --tinta: #0d0d15; /* texto sobre branco, nos botões */
+
+  /* --- tipo ------------------------------------------------------------ */
+  /* Archivo tem eixo de largura: o mesmo desenho serve de título estreito e
+     pesado e de texto corrido normal. JetBrains Mono é a voz técnica, a
+     mesma fonte da IVE. */
+  --fonte-titulo: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --fonte-texto: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --fonte-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* --- medidas da marca ------------------------------------------------ */
+  /* Valores de reserva. src/lib/medirMarca.ts mede a fonte de verdade e
+     reescreve estes quatro, então o pingo tem exatamente a espessura da
+     haste do "i" mesmo se a fonte mudar ou cair no fallback. */
+  --i-xh: 0.53em; /* altura da haste do "ı" (altura-x) */
+  --i-haste: 0.17em; /* espessura da haste = lado do pingo */
+  --i-esq: 0.05em; /* lateral vazia à esquerda do glifo */
+  --i-avanco: 0.27em; /* quanto o glifo empurra o próximo */
+  --marca-ls: -0.02em;
+
+  /* --- esqueleto ------------------------------------------------------- */
+  --largura: 1240px;
+  --cabecalho: 64px;
+
+  color-scheme: dark;
+}
+
+/* --- base --------------------------------------------------------------- */
+
+@layer base {
+  html {
+    background: var(--fundo);
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--cabecalho) + 24px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: var(--fonte-texto);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* A faixa acima do cabeçalho no celular (área do entalhe) pinta com o
+     fundo da página, para nada rolar visível por baixo dos controles. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 60;
+    background: var(--fundo);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--ponto) 60%, transparent);
+    color: #fff;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ponto-claro);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* --- componentes -------------------------------------------------------- */
+
+@layer components {
+  /* O trilho de largura máxima com a calha lateral. A calha usa max() com a
+     área segura para não sumir atrás da barra do sistema no celular. */
+  .moldura {
+    width: 100%;
+    max-width: var(--largura);
+    margin-inline: auto;
+    padding-left: max(clamp(20px, 4vw, 48px), env(safe-area-inset-left, 0px));
+    padding-right: max(clamp(20px, 4vw, 48px), env(safe-area-inset-right, 0px));
+  }
+
+  .secao {
+    position: relative;
+    padding-block: clamp(84px, 10vw, 144px);
+  }
+
+  .pular {
+    position: fixed;
+    left: 16px;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    z-index: 70;
+    padding: 10px 14px;
+    background: var(--texto);
+    color: var(--tinta);
+    font-weight: 600;
+    transform: translateY(-160%);
+    transition: transform 0.2s ease;
+  }
+  .pular:focus {
+    transform: none;
+  }
+
+  /* --- tipografia ------------------------------------------------------ */
+
+  .titulo-hero {
+    font-family: var(--fonte-titulo);
+    font-weight: 760;
+    font-stretch: 78%;
+    font-size: clamp(3.1rem, 8.6vw, 8.4rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+  }
+
+  .titulo {
+    font-family: var(--fonte-titulo);
+    font-weight: 740;
+    font-stretch: 82%;
+    font-size: clamp(2.3rem, 5.4vw, 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .titulo-menor {
+    font-family: var(--fonte-titulo);
+    font-weight: 720;
+    font-stretch: 86%;
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+  }
+
+  .subtitulo {
+    font-size: clamp(1.1rem, 1.55vw, 1.32rem);
+    line-height: 1.55;
+    color: var(--fraco);
+    max-width: 52ch;
+  }
+
+  /* O rótulo de cada seção: mono, minúsculo, com o ponto na frente. */
+  .rotulo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--fonte-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--apagado);
+  }
+  .rotulo::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--ponto);
+    flex: none;
+  }
+
+  /*
+   * O ponto final dos títulos.
+   *
+   * Todo título afirmativo termina com o quadrado roxo no lugar do ponto da
+   * fonte. É a mesma peça do pingo do "i" e do ponto de "iDEA.": a ideia que
+   * começa no i e termina em ponto final. Um inline-block vazio pousa a
+   * borda de baixo na linha de base, que é onde um ponto mora.
+   */
+  .ponto-final {
+    display: inline-block;
+    width: 0.15em;
+    height: 0.15em;
+    margin-left: 0.05em;
+    background: var(--ponto);
+  }
+
+  /* --- a marca --------------------------------------------------------- */
+
+  .marca {
+    display: inline-block;
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-stretch: 100%;
+    letter-spacing: var(--marca-ls);
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--texto);
+  }
+
+  /*
+   * O pingo do "i".
+   *
+   * O "i" da marca é o glifo "ı" (i sem pingo) da própria fonte, com um
+   * quadrado no lugar do pingo. O quadrado entra DEPOIS do glifo, com avanço
+   * zero (margem negativa do tamanho dele) e volta para cima da haste com
+   * `left`. `vertical-align` com comprimento sobe a base do quadrado até a
+   * altura-x mais um vão.
+   */
+  .marca-pingo,
+  .marca-ponto,
+  .marca-viajante {
+    display: inline-block;
+    width: var(--i-haste);
+    height: var(--i-haste);
+    background: var(--ponto);
+  }
+
+  .marca-pingo {
+    position: relative;
+    left: calc(var(--i-esq) - var(--i-avanco) - var(--marca-ls));
+    margin-right: calc(-1 * var(--i-haste));
+    vertical-align: calc(var(--i-xh) + var(--i-haste) * 0.62);
+    transform-origin: 50% 100%;
+  }
+
+  .marca-ponto {
+    margin-left: calc(var(--i-haste) * 0.42);
+    transform-origin: 50% 100%;
+  }
+
+  /* --- botões ---------------------------------------------------------- */
+
+  /*
+   * A onda que nasce do cursor é herança da IVE: o JS só escreve --x/--y
+   * (ver lib/seguirPonteiro.ts) e o CSS cresce o círculo dali. Aqui o
+   * círculo anima `transform: scale()`, que a GPU compõe sem refazer layout.
+   *
+   * Cantos retos em tudo: a forma da marca é o quadrado.
+   */
+  .botao {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 50px;
+    padding: 0 24px;
+    border: 1px solid transparent;
+    font-family: var(--fonte-texto);
+    font-size: 15.5px;
+    font-weight: 620;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .botao::before {
+    content: "";
+    position: absolute;
+    left: var(--x, 50%);
+    top: var(--y, 50%);
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .botao:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .botao:active {
+    translate: 0 1px;
+  }
+
+  /* Cheio: branco, e o roxo da marca inunda a partir do cursor. */
+  .botao-cheio {
+    background: var(--texto);
+    color: var(--tinta);
+  }
+  .botao-cheio::before {
+    background: var(--ponto);
+  }
+  .botao-cheio:hover {
+    color: #fff;
+  }
+
+  /* Vazado: só o contorno, e o branco inunda. */
+  .botao-vazado {
+    background: transparent;
+    color: var(--texto);
+    border-color: var(--linha-forte);
+  }
+  .botao-vazado::before {
+    background: var(--texto);
+  }
+  .botao-vazado:hover {
+    color: var(--tinta);
+    border-color: var(--texto);
+  }
+
+  .botao-pequeno {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  /* Link de texto com seta, para ações secundárias. */
+  .link-seta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--fonte-mono);
+    font-size: 13px;
+    color: var(--texto);
+    border-bottom: 1px solid var(--linha-forte);
+    padding-bottom: 3px;
+    transition: border-color 0.2s ease;
+  }
+  .link-seta:hover {
+    border-color: var(--ponto);
+  }
+
+  /* --- cabeçalho ------------------------------------------------------- */
+
+  .cabecalho {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    padding-top: env(safe-area-inset-top, 0px);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .cabecalho.rolou {
+    background: color-mix(in srgb, var(--fundo) 84%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: var(--linha);
+  }
+
+  .nav-item {
+    font-size: 14.5px;
+    color: var(--fraco);
+    transition: color 0.18s ease;
+  }
+  .nav-item:hover {
+    color: var(--texto);
+  }
+
+  /* --- sintomas -------------------------------------------------------- */
+
+  /* A borda mora no invólucro (o <Revela> de cada item), não no label. */
+  .sintoma {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: start;
+    padding-block: 20px;
+    cursor: pointer;
+  }
+  .sintoma-caixa {
+    width: 18px;
+    height: 18px;
+    margin-top: 0.32em;
+    border: 1.5px solid var(--linha-forte);
+    transition:
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .sintoma-frase {
+    font-size: clamp(1.06rem, 1.45vw, 1.28rem);
+    line-height: 1.45;
+    color: var(--fraco);
+    transition: color 0.18s ease;
+  }
+  .sintoma:hover .sintoma-frase,
+  .sintoma input:checked ~ .sintoma-frase {
+    color: var(--texto);
+  }
+  .sintoma:hover .sintoma-caixa {
+    border-color: var(--fraco);
+  }
+  .sintoma input:checked + .sintoma-caixa {
+    background: var(--ponto);
+    border-color: var(--ponto);
+    transform: scale(1.08);
+  }
+  .sintoma input:focus-visible + .sintoma-caixa {
+    outline: 2px solid var(--ponto-claro);
+    outline-offset: 3px;
+  }
+
+  code,
+  .codigo {
+    font-family: var(--fonte-mono);
+    font-size: 0.86em;
+    letter-spacing: -0.01em;
+    padding: 0.08em 0.35em;
+    background: var(--fundo-alto);
+    border: 1px solid var(--linha);
+    color: var(--texto);
+  }
+
+  /* --- órbita ---------------------------------------------------------- */
+
+  /* A órbita é uma fila de pontos quadrados: traço de 2 com folga de 6, e
+     ponta quadrada para cada traço virar um quadradinho. */
+  .orbita-anel {
+    fill: none;
+    stroke: #45455a;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-dasharray: 2 6;
+    transition: stroke 0.3s ease;
+  }
+  .orbita-anel.ativo {
+    stroke: var(--texto);
+  }
+  .orbita-alvo {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 44;
+    cursor: pointer;
+    pointer-events: stroke;
+  }
+  .orbita-rotulo {
+    font-family: var(--fonte-mono);
+    font-size: 12px;
+    fill: var(--apagado);
+    transition: fill 0.3s ease;
+  }
+  .orbita-rotulo.ativo {
+    fill: var(--texto);
+  }
+  .orbita-gira {
+    animation: girar var(--dur, 60s) linear infinite;
+  }
+  .orbita-gira.contra {
+    animation-direction: reverse;
+  }
+
+  /* A lista de camadas ao lado da órbita. */
+  .camada-aba {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 0;
+    border-top: 1px solid var(--linha);
+    text-align: left;
+    color: var(--apagado);
+    transition: color 0.2s ease;
+  }
+  .camada-aba:hover,
+  .camada-aba[data-state="active"] {
+    color: var(--texto);
+  }
+  .camada-aba[data-state="active"] .camada-marca {
+    background: var(--ponto);
+    border-color: var(--ponto);
+  }
+  .camada-marca {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid currentColor;
+    margin-right: 14px;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  /* --- terminal -------------------------------------------------------- */
+
+  .terminal {
+    border: 1px solid var(--linha-forte);
+    background: var(--fundo-alto);
+    font-family: var(--fonte-mono);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .terminal-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--linha);
+    font-size: 12px;
+    color: var(--apagado);
+  }
+  .terminal-corpo {
+    padding: 20px 18px 24px;
+    min-height: 23.5em;
+  }
+  .linha-log {
+    display: grid;
+    grid-template-columns: 5.6em 1fr;
+    gap: 16px;
+    color: var(--texto);
+  }
+  .linha-log .hora {
+    color: var(--apagado);
+    font-variant-numeric: tabular-nums;
+  }
+  .linha-log .destaque {
+    color: var(--ponto-claro);
+  }
+  .linha-log.fim {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--linha-forte);
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.62em;
+    height: 1.1em;
+    margin-left: 2px;
+    vertical-align: -0.18em;
+    background: var(--ponto);
+    animation: piscar 1.05s steps(1) infinite;
+  }
+  .estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .estado::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--apagado);
+  }
+  .estado.rodando::before {
+    background: var(--ponto);
+    animation: piscar 0.9s steps(1) infinite;
+  }
+  .estado.pronto::before {
+    background: var(--texto);
+  }
+
+  .aba-ramo {
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--linha);
+    font-size: 14px;
+    color: var(--fraco);
+    white-space: nowrap;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .aba-ramo:hover {
+    color: var(--texto);
+    border-color: var(--linha-forte);
+  }
+  .aba-ramo[data-state="active"] {
+    background: var(--texto);
+    border-color: var(--texto);
+    color: var(--tinta);
+  }
+
+  /* --- calculadora ----------------------------------------------------- */
+
+  .numero-grande {
+    font-family: var(--fonte-titulo);
+    font-weight: 720;
+    font-stretch: 80%;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- método ---------------------------------------------------------- */
+
+  .passo {
+    position: relative;
+    padding-top: 28px;
+    transition: opacity 0.4s ease;
+  }
+  .passo-numero {
+    font-family: var(--fonte-mono);
+    font-size: 12.5px;
+    color: var(--apagado);
+    transition: color 0.4s ease;
+  }
+  .passo.ativo .passo-numero {
+    color: var(--ponto-claro);
+  }
+  .passo:not(.ativo) {
+    opacity: 0.45;
+  }
+
+  /* --- manifesto ------------------------------------------------------- */
+
+  .manifesto {
+    --p: 1;
+    font-family: var(--fonte-titulo);
+    font-weight: 640;
+    font-stretch: 88%;
+    font-size: clamp(2rem, 4.6vw, 3.9rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+  /* Cada palavra se acende quando o progresso (--p) passa pelo índice dela
+     (--i). O 0,2 é o piso: apagada, mas ainda legível. */
+  .manifesto-palavra {
+    opacity: clamp(0.2, calc(var(--p) * (var(--n) + 3) - var(--i) - 1.5), 1);
+    transition: opacity 0.15s linear;
+  }
+
+  /* --- formulário ------------------------------------------------------ */
+
+  .campo-rotulo {
+    display: block;
+    font-family: var(--fonte-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: var(--apagado);
+    margin-bottom: 6px;
+  }
+  .campo {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--linha-forte);
+    border-radius: 0;
+    padding: 10px 0 12px;
+    font-size: 18px;
+    color: var(--texto);
+    transition: border-color 0.2s ease;
+  }
+  .campo::placeholder {
+    color: color-mix(in srgb, var(--apagado) 75%, var(--fundo));
+  }
+  .campo:focus {
+    outline: none;
+    border-bottom-color: var(--ponto);
+  }
+  textarea.campo {
+    resize: vertical;
+    min-height: 7.5em;
+    line-height: 1.5;
+  }
+
+  .chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--linha-forte);
+    font-size: 14.5px;
+    color: var(--fraco);
+    cursor: pointer;
+    transition:
+      color 0.18s ease,
+      background-color 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .chip:hover {
+    color: var(--texto);
+    border-color: var(--fraco);
+  }
+  .chip:has(input:checked) {
+    background: var(--texto);
+    border-color: var(--texto);
+    color: var(--tinta);
+  }
+  .chip:has(input:focus-visible) {
+    outline: 2px solid var(--ponto-claro);
+    outline-offset: 3px;
+  }
+
+  .mensagem {
+    font-family: var(--fonte-mono);
+    font-size: 13.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: var(--texto);
+  }
+
+  /* --- aparição -------------------------------------------------------- */
+
+  /*
+   * O estado de repouso é VISÍVEL. O <Revela> só acrescenta `.surge` quando
+   * o bloco está para entrar na tela (um pouco antes, ver Revela.tsx), e é a
+   * animação que parte de opacidade zero. Sem JS, sem observer ou com menos
+   * movimento, o texto simplesmente está lá.
+   */
+  .surge {
+    animation: surgir 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--atraso, 0ms);
+  }
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+}
+
+@keyframes piscar {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .surge,
+  .orbita-gira,
+  .cursor,
+  .estado.rodando::before {
+    animation: none !important;
+  }
+  .botao::before,
+  .sintoma-caixa {
+    transition: none;
+  }
+}
