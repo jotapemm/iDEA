@@ -1,3 +1,6 @@
+import { useEffect, useRef } from "react";
+import { alinharBaseAoPixel } from "@/lib/baseNoPixel";
+
 /**
  * A marca: iDEA.
  *
@@ -8,12 +11,21 @@
  *
  * O "i" é desenhado, e não digitado: haste e pingo com a espessura da haste
  * da fonte, e do pé ao topo do pingo a altura do D (ver lib/medirMarca.ts e
- * .marca-haste no CSS).
+ * .marca-haste no CSS). A marca inteira desce ou sobe uma fração de pixel
+ * para a linha de base cair num pixel exato (ver lib/baseNoPixel.ts): sem
+ * isso, com zoom de 90%, o pingo saía do alinhamento com o topo do D.
  */
 export function Marca({ tamanho = 22, className = "" }: { tamanho?: number | string; className?: string }) {
+  const raiz = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = raiz.current;
+    return el ? alinharBaseAoPixel(el) : undefined;
+  }, []);
+
   return (
     <span
-      className={`marca ${className}`}
+      ref={raiz}
+      className={`marca relative ${className}`}
       style={{ fontSize: typeof tamanho === "number" ? `${tamanho}px` : tamanho }}
       role="img"
       aria-label="iDEA."
