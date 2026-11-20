@@ -1,0 +1,8 @@
+# O pnpm 12 recusa scripts de instalação e, sem esta lista, o `pnpm install`
+# termina com erro (ERR_PNPM_IGNORED_BUILDS). Os quatro são do Parcel e já
+# vêm com binário pronto, então os scripts deles não precisam rodar.
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  lmdb: false
+  msgpackr-extract: false
