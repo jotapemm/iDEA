@@ -10,7 +10,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "artefato": "parcel build scripts/artefato.html --dist-dir artefato/parcel --no-source-maps --no-cache && node scripts/artefato.mjs",
-    "imagens": "node scripts/imagens.mjs"
+    "imagens": "node scripts/imagens.mjs",
+    "video": "node scripts/video.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slider": "^1.6.1",

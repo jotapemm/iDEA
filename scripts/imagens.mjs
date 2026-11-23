@@ -21,20 +21,23 @@
  *   anuncio-status.png    1080×1920. O status do WhatsApp e o story do
  *                         Instagram
  *
+ * O mesmo anúncio em movimento, em MP4, sai do pnpm video (scripts/video.mjs).
+ *
  * Os ícones são três retângulos, então saem pixel a pixel daqui mesmo, sem
  * navegador e sem biblioteca. A og.png e o anúncio precisam de navegador, por
- * causa da fonte e do plano de pontos.
+ * causa da fonte e do plano de pontos (ver scripts/navegador.mjs).
  *
  * Rode de novo quando mudar o og.html, o anuncio.html ou a marca. Se o
  * navegador estiver em outro lugar, diga onde:
  * NAVEGADOR="C:/caminho/chrome.exe" pnpm imagens
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { crc32, deflateSync } from "node:zlib";
+import { navegador } from "./navegador.mjs";
 
 const PASTA = "public";
 const DIVULGACAO = "divulgacao";
@@ -135,25 +138,6 @@ function svg() {
     `<rect x="${x}" y="${topo}" width="${t}" height="${t}" fill="#8257f5"/>` +
     `</svg>\n`
   );
-}
-
-function navegador() {
-  const candidatos = [
-    process.env.NAVEGADOR,
-    "C:/Program Files/Google/Chrome/Application/chrome.exe",
-    "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
-    "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
-    "C:/Program Files/Microsoft/Edge/Application/msedge.exe",
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/usr/bin/google-chrome",
-    "/usr/bin/chromium",
-    "/usr/bin/chromium-browser",
-  ];
-  const achado = candidatos.find((c) => c && existsSync(c));
-  if (!achado) {
-    throw new Error('Não achei Chrome nem Edge. Diga onde ele está: NAVEGADOR="caminho" pnpm imagens');
-  }
-  return achado;
 }
 
 /**

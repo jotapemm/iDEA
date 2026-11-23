@@ -1,10 +1,14 @@
 <!doctype html>
 <!--
-  A arte do anúncio da iDEA nas redes. Não é página do site. O `pnpm imagens`
-  fotografa este arquivo em dois formatos e grava as fotos em divulgacao/:
+  A arte do anúncio da iDEA nas redes. Não é página do site. Sai daqui em
+  dois formatos, parada e em movimento, e tudo vai para divulgacao/:
 
     ?formato=feed     1080×1350: post do Instagram e do LinkedIn
     ?formato=status   1080×1920: status do WhatsApp e story do Instagram
+
+  O `pnpm imagens` fotografa a imagem parada (os PNGs). O `pnpm video` filma
+  o plano em movimento, como no site, e grava os MP4s. O roteiro do vídeo
+  está no script, no fim deste arquivo.
 
   É a cena da prévia do link (scripts/og.html) em pé: a marca e o endereço no
   alto, o título no meio e o plano de pontos embaixo, com a ideia roxa. No
@@ -221,33 +225,47 @@
       const { L, A } = cam;
       const TAU = Math.PI * 2;
 
-      /* As ondas, iguais às do Plano.tsx. */
+      /* As ondas e a entrada, iguais às do Plano.tsx. */
       const VELOCIDADE = 0.0016;
       const COMPRIMENTO = 0.6;
       const PACOTE = 0.85;
       const AMPLITUDE = 0.05;
+      const VIDA_ONDA = 7000;
+      const ENTRADA = 1300;
 
-      /* O quadro parado do site: t = 9 s, com uma onda de 1,8 s no caminho. */
+      /* A imagem é o quadro parado do site: t = 9 s, com uma onda de 1,8 s no caminho. */
       const T = 9000;
       const IDADE = 1800;
 
+      /*
+       * O roteiro do vídeo (pnpm video), em ms. É o começo do site: os pontos
+       * nascem espalhados, a ideia aparece, toca o plano aos 650 ms e a ordem
+       * se espalha a partir dela. No site, o toque seguinte vem a cada 3,6 a
+       * 4,5 s, sorteado; aqui os toques são fixos. O plano acende no começo e
+       * apaga no fim, então o vídeo começa e termina só com o texto, e o loop
+       * do Instagram não dá pulo.
+       */
+      const DURACAO = 12000;
+      const TOQUES = [650, 4550, 8450];
+      const ACENDE = 400;
+      const APAGA = 900;
+
       const faixa = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
+      const saida = (v) => 1 - (1 - v) ** 3;
 
       /* Sorteio com semente: rodar de novo dá a mesma imagem. */
-      let semente = 7;
-      const sorteio = () => {
-        semente = (semente + 0x6d2b79f5) | 0;
-        let t = Math.imul(semente ^ (semente >>> 15), 1 | semente);
-        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-      };
-
-      const cv = document.getElementById("plano");
-      const dpr = window.devicePixelRatio || 1;
-      cv.width = L * dpr;
-      cv.height = A * dpr;
-      const ctx = cv.getContext("2d");
-      ctx.scale(dpr, dpr);
+      function sorteador(semente) {
+        return () => {
+          semente = (semente + 0x6d2b79f5) | 0;
+          let t = Math.imul(semente ^ (semente >>> 15), 1 | semente);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      // O brilho dos pontos sai do sorteio de sempre, e o caos do vídeo sai de
+      // outro: assim o vídeo não muda nada na imagem parada.
+      const sorteio = sorteador(7);
+      const acaso = sorteador(11);
 
       /*
        * A câmera. Na prévia do link, f é 0,984 vezes a altura do chão na tela
@@ -265,6 +283,8 @@
       const U = Math.max(((L / 2 + 60) * Z0 * 5) / f, Math.abs(ideia.u) * 1.8);
       const du = (cam.espaco * Z0) / f;
 
+      /* Os pontos do plano, fileira por fileira, da frente para o fundo. */
+      const pontos = [];
       for (let y = yPerto; y > yLonge; y -= cam.espaco) {
         const z = f / (y - horizonte);
         const q = (y - yLonge) / (yPerto - yLonge);
@@ -273,43 +293,116 @@
         const n = Math.floor(meia / du);
         for (let k = -n; k <= n; k += pulo) {
           const u = k * du;
-          const brilho = 0.55 + sorteio() * 0.45;
-
-          let h = 0.01 * Math.sin(u * 1.9 + T * 0.00055) + 0.008 * Math.sin(z * 2.4 - T * 0.0004);
-          const d = Math.hypot(u - ideia.u, z - ideia.z) - VELOCIDADE * IDADE;
-          if (Math.abs(d) <= 2.6 * PACOTE) {
-            const envelope = Math.exp(-(d * d) / (PACOTE * PACOTE)) * Math.exp(-IDADE / 3800);
-            h += AMPLITUDE * envelope * Math.cos((TAU * d) / COMPRIMENTO);
-          }
-
-          const esc = f / z;
-          const x = cx + u * esc;
-          const py = horizonte + (1 - h) * esc;
-
-          const neblina = 0.14 + 0.86 * q ** 1.3;
-          const borda = 1 - faixa(Math.abs(u) / U, 0.78, 1);
-          const crista = Math.max(-1, Math.min(1, h / (AMPLITUDE * 0.55)));
-          const alfa = Math.min(1, 1.3 * brilho * neblina * borda * (0.62 + 0.38 * crista));
-          const s = (1.1 + 1.4 * q + Math.max(0, crista) * 0.7) * cam.grosso;
-
-          ctx.fillStyle = `rgba(242,242,247,${(alfa * 0.95).toFixed(3)})`;
-          ctx.fillRect(x - s / 2, py - s / 2, s, s);
+          pontos.push({
+            u,
+            z,
+            q,
+            brilho: 0.55 + sorteio() * 0.45,
+            // Só o vídeo usa: onde o ponto nasce, à deriva, e quando ele
+            // entra no lugar. A ordem se espalha a partir da ideia.
+            caosX: acaso() * L,
+            caosY: acaso() * A,
+            fase: acaso() * TAU,
+            atraso: 300 + Math.hypot(u - ideia.u, z - ideia.z) * 230 + acaso() * 260,
+          });
         }
       }
 
-      /* A ideia, flutuando, e o reflexo dela no plano. */
-      const altura = 0.46 + 0.03 * Math.sin(T * 0.0019);
-      const esc = f / ideia.z;
-      const ix = cx + ideia.u * esc;
-      const lado = cam.lado;
-      ctx.fillStyle = "rgba(130,87,245,0.18)";
-      ctx.fillRect(ix - lado / 2, horizonte + (1 + altura * 0.3) * esc - lado * 0.3, lado, lado * 0.6);
-      ctx.save();
-      ctx.shadowColor = "rgba(130,87,245,0.9)";
-      ctx.shadowBlur = cam.brilho;
-      ctx.fillStyle = "#8257f5";
-      ctx.fillRect(ix - lado / 2, horizonte + (1 - altura) * esc - lado / 2, lado, lado);
-      ctx.restore();
+      /*
+       * Um quadro no instante `t` (ms). `ondas` são os instantes em que a
+       * ideia tocou o plano. `video` liga o que só existe em movimento: a
+       * entrada do caos, o mergulho da ideia a cada toque e o plano acendendo
+       * e apagando.
+       */
+      function desenhar(ctx, t, ondas, video) {
+        const luz = video ? Math.min(faixa(t, 0, ACENDE), 1 - faixa(t, DURACAO - APAGA, DURACAO)) : 1;
+
+        for (const p of pontos) {
+          let h = 0.01 * Math.sin(p.u * 1.9 + t * 0.00055) + 0.008 * Math.sin(p.z * 2.4 - t * 0.0004);
+          for (const t0 of ondas) {
+            const idade = t - t0;
+            if (idade < 0 || idade >= VIDA_ONDA) continue;
+            const d = Math.hypot(p.u - ideia.u, p.z - ideia.z) - VELOCIDADE * idade;
+            if (Math.abs(d) <= 2.6 * PACOTE) {
+              const envelope = Math.exp(-(d * d) / (PACOTE * PACOTE)) * Math.exp(-idade / 3800);
+              h += AMPLITUDE * envelope * Math.cos((TAU * d) / COMPRIMENTO);
+            }
+          }
+
+          const esc = f / p.z;
+          let x = cx + p.u * esc;
+          let y = horizonte + (1 - h) * esc;
+
+          const neblina = 0.14 + 0.86 * p.q ** 1.3;
+          const borda = 1 - faixa(Math.abs(p.u) / U, 0.78, 1);
+          const crista = Math.max(-1, Math.min(1, h / (AMPLITUDE * 0.55)));
+          let alfa = Math.min(1, 1.3 * p.brilho * neblina * borda * (0.62 + 0.38 * crista));
+          const s = (1.1 + 1.4 * p.q + Math.max(0, crista) * 0.7) * cam.grosso;
+
+          if (video) {
+            // A entrada do site: do caos, à deriva, para o lugar no plano.
+            const e = saida(faixa(t, p.atraso, p.atraso + ENTRADA));
+            if (e < 1) {
+              const vx = p.caosX + Math.sin(t * 0.0012 + p.fase) * 9 * cam.grosso;
+              const vy = p.caosY + Math.cos(t * 0.001 + p.fase * 1.3) * 9 * cam.grosso;
+              x = vx + (x - vx) * e;
+              y = vy + (y - vy) * e;
+              const aCaos = 0.1 + p.brilho * 0.22;
+              alfa = aCaos + (alfa - aCaos) * e;
+            }
+            alfa *= luz;
+          }
+
+          ctx.fillStyle = `rgba(242,242,247,${(alfa * 0.95).toFixed(3)})`;
+          ctx.fillRect(x - s / 2, y - s / 2, s, s);
+        }
+
+        /* A ideia, flutuando, e o reflexo dela no plano. */
+        let altura = 0.46 + 0.03 * Math.sin(t * 0.0019);
+        let lado = cam.lado;
+        let vida = 1;
+        if (video) {
+          // Como no site: ela nasce em meio segundo e desce até quase tocar o
+          // plano a cada toque. No fim, encolhe e apaga junto com o plano.
+          let mergulho = 0;
+          for (const t0 of ondas) mergulho += Math.exp(-(((t - t0) / (t < t0 ? 150 : 190)) ** 2));
+          altura -= 0.3 * Math.min(1, mergulho);
+          vida = Math.min(saida(faixa(t, 0, 500)), 1 - faixa(t, DURACAO - APAGA, DURACAO));
+          lado *= 0.3 + 0.7 * vida;
+        }
+        const esc = f / ideia.z;
+        const ix = cx + ideia.u * esc;
+        ctx.fillStyle = `rgba(130,87,245,${(0.18 * vida).toFixed(3)})`;
+        ctx.fillRect(ix - lado / 2, horizonte + (1 + altura * 0.3) * esc - lado * 0.3, lado, lado * 0.6);
+        ctx.save();
+        ctx.globalAlpha = vida;
+        ctx.shadowColor = "rgba(130,87,245,0.9)";
+        ctx.shadowBlur = cam.brilho;
+        ctx.fillStyle = "#8257f5";
+        ctx.fillRect(ix - lado / 2, horizonte + (1 - altura) * esc - lado / 2, lado, lado);
+        ctx.restore();
+      }
+
+      /* A imagem parada, que o pnpm imagens fotografa. */
+      const cv = document.getElementById("plano");
+      const dpr = window.devicePixelRatio || 1;
+      cv.width = L * dpr;
+      cv.height = A * dpr;
+      const ctx = cv.getContext("2d");
+      ctx.scale(dpr, dpr);
+      desenhar(ctx, T, [T - IDADE], false);
+
+      /* Para o pnpm video: qualquer quadro do roteiro, já com o fundo. */
+      window.anuncio = {
+        L,
+        A,
+        DURACAO,
+        quadro(ctx, t) {
+          ctx.fillStyle = "#050509";
+          ctx.fillRect(0, 0, L, A);
+          desenhar(ctx, t, TOQUES, true);
+        },
+      };
     </script>
   </body>
 </html>
