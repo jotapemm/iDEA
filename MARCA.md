@@ -34,6 +34,11 @@ espessura da haste da fonte, e o "i" inteiro, do pé ao topo do pingo, tem a
 altura das maiúsculas: o topo do pingo alinha com o topo do D. O vão entre o
 pingo e a haste é meia espessura.
 
+**Ícone:** onde a marca inteira não cabe (a aba do navegador, a tela de
+início do celular, uma foto de perfil), fica só o "i": haste branca e pingo
+roxo no fundo escuro, nas mesmas proporções. Os arquivos saem de
+`scripts/imagens.mjs`.
+
 **Regra de ouro:** o ponto é a ÚNICA coisa colorida. Ele aparece na logo, no
 fim de cada título afirmativo, nos marcadores, no cursor do terminal e no
 foco do teclado. Todo o resto é branco sobre preto.
