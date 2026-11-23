@@ -1,6 +1,7 @@
 import { MarcaViva } from "./MarcaViva";
 import { PontoFinal } from "./PontoFinal";
 import { CONTATO } from "@/config/contato";
+import { EMPRESA, PRIVACIDADE } from "@/config/empresa";
 
 const ANO = new Date().getFullYear();
 
@@ -18,9 +19,14 @@ const NAVEGACAO = [
  * (ver MarcaViva.tsx), e a frase dela.
  *
  * Contatos vazios em config/contato.ts não aparecem: link que não leva a
- * lugar nenhum é pior do que link nenhum.
+ * lugar nenhum é pior do que link nenhum. A razão social e o CNPJ, de
+ * config/empresa.ts, entram na última linha quando a empresa existir.
+ *
+ * `inicio` funciona como no Cabecalho: "/" fora da página principal. O aviso
+ * de privacidade abre em outra aba, para quem está escrevendo a mensagem do
+ * contato não perder o que já escreveu.
  */
-export function Rodape() {
+export function Rodape({ inicio = "" }: { inicio?: string }) {
   const canais = [
     CONTATO.whatsapp && { rotulo: "WhatsApp", href: `https://wa.me/${CONTATO.whatsapp.replace(/\D/g, "")}` },
     CONTATO.instagram && { rotulo: "Instagram", href: `https://instagram.com/${CONTATO.instagram}` },
@@ -47,7 +53,7 @@ export function Rodape() {
             <ul className="mt-3 grid gap-2 text-[15px]">
               {NAVEGACAO.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="nav-item">
+                  <a href={`${inicio}${l.href}`} className="nav-item">
                     {l.rotulo}
                   </a>
                 </li>
@@ -58,7 +64,7 @@ export function Rodape() {
             <p className="campo-rotulo">fale com a gente</p>
             <ul className="mt-3 grid gap-2 text-[15px]">
               <li>
-                <a href="#contato" className="nav-item">
+                <a href={`${inicio}#contato`} className="nav-item">
                   Conte sua ideia
                 </a>
               </li>
@@ -75,7 +81,14 @@ export function Rodape() {
         </div>
 
         <div className="mt-14 flex flex-wrap justify-between gap-4 font-mono text-[12px] text-apagado">
-          <span>© {ANO} iDEA.</span>
+          <span>
+            © {ANO} iDEA.
+            {EMPRESA.razaoSocial && ` · ${EMPRESA.razaoSocial}`}
+            {EMPRESA.cnpj && ` · CNPJ ${EMPRESA.cnpj}`}
+          </span>
+          <a href={PRIVACIDADE} className="transition-colors hover:text-texto" target="_blank" rel="noopener">
+            privacidade
+          </a>
           <span>feito no Brasil</span>
         </div>
       </div>
