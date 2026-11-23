@@ -16,6 +16,7 @@ pnpm dev          # http://localhost:5173
 pnpm build        # o site de verdade, em dist/ (é o que a Cloudflare publica)
 pnpm artefato     # um HTML único em artefato/, para compartilhar ou publicar como Artifact
 pnpm imagens      # refaz a prévia do link, os ícones e a arte do anúncio
+pnpm video        # o anúncio em movimento, em MP4
 ```
 
 São dois builds de propósito. O `build` (Vite) gera arquivos separados, com
@@ -64,17 +65,32 @@ nova, mande o link com algo no fim, como `https://idea-dft.pages.dev/?v=2`.
 
 ## Arte do anúncio
 
-A arte do anúncio de lançamento mora em `divulgacao/` e não entra no site:
+A arte do anúncio de lançamento mora em `divulgacao/` e não entra no site.
+Cada formato existe em movimento (MP4) e parado (PNG):
 
 | Arquivo | Onde usar |
 | --- | --- |
-| `anuncio-feed.png` | post do Instagram e do LinkedIn (1080×1350) |
-| `anuncio-status.png` | status do WhatsApp e story do Instagram (1080×1920) |
+| `anuncio-feed.mp4` | post do Instagram (vira Reels) e do LinkedIn (1080×1350, 12 s) |
+| `anuncio-status.mp4` | status do WhatsApp e story do Instagram (1080×1920, 12 s) |
+| `anuncio-feed.png`, `anuncio-status.png` | a capa dos vídeos, e onde vídeo não cabe |
 
-As duas saem do `scripts/anuncio.html`, no mesmo `pnpm imagens`. É a cena da
-prévia do link, em pé. No status, a arte termina pedindo resposta, porque quem
-responde um status cai direto na conversa. O alto e o pé do status ficam por
-baixo dos botões do aplicativo, então nada que precise ser lido mora ali.
+Tudo sai do `scripts/anuncio.html`. É a cena da prévia do link, em pé. No
+status, a arte termina pedindo resposta, porque quem responde um status cai
+direto na conversa. O alto e o pé do status ficam por baixo dos botões do
+aplicativo, então nada que precise ser lido mora ali.
+
+O `pnpm imagens` fotografa os PNGs. O `pnpm video` filma o plano como ele
+aparece no site: os pontos nascem espalhados, a ideia toca o plano e a ordem
+se espalha a partir dela. O vídeo começa e termina só com o texto, então o
+loop do Instagram não dá pulo. O roteiro (duração e toques) fica no fim do
+`anuncio.html`.
+
+O vídeo sai do próprio Chrome, sem ffmpeg: a página desenha cada quadro, o
+codificador de vídeo do navegador (WebCodecs) passa para H.264 e o
+`scripts/video.mjs` monta o MP4. O codificador não devolve o mesmo arquivo
+duas vezes, então o MP4 guarda uma impressão digital do desenho. Se nada
+mudou, o `pnpm video` deixa o vídeo como está, e o Git não ganha uns 15 MB
+à toa.
 
 ## Lançamento
 
@@ -109,7 +125,7 @@ baixo dos botões do aplicativo, então nada que precise ser lido mora ali.
 | O texto da mensagem do WhatsApp | `src/lib/mensagem.ts` |
 | Cores, fontes, botões | `src/index.css` (tokens no `:root`, no topo) |
 | A imagem da prévia do link | `scripts/og.html`, depois `pnpm imagens` |
-| A arte do anúncio (feed e status) | `scripts/anuncio.html`, depois `pnpm imagens` |
+| A arte do anúncio (feed e status) | `scripts/anuncio.html`, depois `pnpm imagens` e `pnpm video` |
 | O favicon e o ícone do celular | `scripts/imagens.mjs`, depois `pnpm imagens` |
 | Título e descrição da prévia | `index.html` (as metas `og:`) |
 | Uma seção | `src/secoes/<Seção>.tsx` |
@@ -192,13 +208,18 @@ no estado final.
 - **Na pasta do OneDrive, o Vite às vezes demora a ver um arquivo salvo.** Se
   uma mudança não aparecer no localhost, espere uns segundos ou recarregue a
   página.
+- **O vídeo converte a própria cor.** O `scripts/video.mjs` passa cada quadro
+  para YUV na norma BT.709 e na faixa limitada, que é o que todo celular
+  espera. Deixada para o Chrome, a faixa mudava com a placa de vídeo ligada
+  ou não. Ao conferir a cor de um vídeo num Chrome sem placa de vídeo, o roxo
+  parece menos azul: é um atalho de conta do Chrome nesse modo, não o arquivo.
 
 ## Estrutura
 
 ```
 divulgacao/                a arte do anúncio para as redes (fora do site)
 public/                    prévia do link, ícones e o cache da Cloudflare
-scripts/                   o build do Artifact, o gerador das imagens e o desenho delas
+scripts/                   o build do Artifact e o que desenha e gera as imagens e o vídeo
 src/
 ├── App.tsx                a ordem das seções
 ├── index.css              tokens da identidade e estilos dos componentes
