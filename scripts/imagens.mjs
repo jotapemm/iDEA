@@ -1,8 +1,9 @@
 /**
- * Gera as imagens fixas do site. Elas moram em public/ e vão para o Git,
- * porque o deploy só copia a pasta.
+ * Gera as imagens da marca. Todas vão para o Git.
  *
  *   pnpm imagens
+ *
+ * Em public/, as do site (o deploy só copia essa pasta):
  *
  *   og.png                1200×630. A prévia do link no WhatsApp, LinkedIn e
  *                         afins. É o scripts/og.html fotografado por um Chrome
@@ -13,12 +14,20 @@
  *   apple-touch-icon.png  180×180. O ícone de quem salva o site na tela de
  *                         início do iPhone
  *
- * Os ícones são três retângulos, então saem pixel a pixel daqui mesmo, sem
- * navegador e sem biblioteca. Só a og.png precisa de navegador, por causa da
- * fonte e do plano de pontos.
+ * Em divulgacao/, a arte do anúncio para as redes, que não entra no site.
+ * As duas são o scripts/anuncio.html fotografado em cada formato:
  *
- * Rode de novo quando mudar o og.html ou a marca. Se o navegador estiver em
- * outro lugar, diga onde: NAVEGADOR="C:/caminho/chrome.exe" pnpm imagens
+ *   anuncio-feed.png      1080×1350. O post do Instagram e do LinkedIn
+ *   anuncio-status.png    1080×1920. O status do WhatsApp e o story do
+ *                         Instagram
+ *
+ * Os ícones são três retângulos, então saem pixel a pixel daqui mesmo, sem
+ * navegador e sem biblioteca. A og.png e o anúncio precisam de navegador, por
+ * causa da fonte e do plano de pontos.
+ *
+ * Rode de novo quando mudar o og.html, o anuncio.html ou a marca. Se o
+ * navegador estiver em outro lugar, diga onde:
+ * NAVEGADOR="C:/caminho/chrome.exe" pnpm imagens
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -28,6 +37,7 @@ import { pathToFileURL } from "node:url";
 import { crc32, deflateSync } from "node:zlib";
 
 const PASTA = "public";
+const DIVULGACAO = "divulgacao";
 
 const FUNDO = [0x05, 0x05, 0x09];
 const TEXTO = [0xf2, 0xf2, 0xf7];
@@ -150,8 +160,9 @@ function navegador() {
  * Abre o HTML num navegador sem janela e salva a tela como PNG. O perfil é
  * descartável: assim não mexe no navegador de ninguém, mesmo aberto. O
  * tempo virtual dá conta das fontes do Google chegarem antes da foto.
+ * `busca` vai no fim do endereço, como o "?formato=status" do anúncio.
  */
-function fotografar(html, saida, larg, alt) {
+function fotografar(html, saida, larg, alt, busca = "") {
   const perfil = mkdtempSync(join(tmpdir(), "idea-imagens-"));
   try {
     execFileSync(
@@ -167,7 +178,7 @@ function fotografar(html, saida, larg, alt) {
         `--window-size=${larg},${alt}`,
         "--virtual-time-budget=15000",
         `--screenshot=${resolve(saida)}`,
-        pathToFileURL(resolve(html)).href,
+        pathToFileURL(resolve(html)).href + busca,
       ],
       { stdio: "ignore", timeout: 90_000 },
     );
@@ -196,3 +207,13 @@ console.log(`ícones prontos: favicon.svg, favicon.ico (${kb(icoBytes.length)}),
 const og = fotografar("scripts/og.html", join(PASTA, "og.png"), 1200, 630);
 // O WhatsApp às vezes deixa a prévia sem imagem quando ela passa de 300 KB.
 console.log(`og.png pronta: 1200×630, ${kb(og)}${og > 300 * 1024 ? " (acima de 300 KB: o WhatsApp pode ignorar)" : ""}`);
+
+mkdirSync(DIVULGACAO, { recursive: true });
+for (const [formato, larg, alt] of [
+  ["feed", 1080, 1350],
+  ["status", 1080, 1920],
+]) {
+  const nome = `anuncio-${formato}.png`;
+  const bytes = fotografar("scripts/anuncio.html", join(DIVULGACAO, nome), larg, alt, `?formato=${formato}`);
+  console.log(`${nome} pronta: ${larg}×${alt}, ${kb(bytes)}`);
+}
