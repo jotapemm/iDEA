@@ -13,8 +13,9 @@ pnpm dev          # http://localhost:5173
 ```
 
 ```bash
-pnpm build        # o site de verdade, em dist/ (sobe na Vercel, Netlify, GitHub Pages)
+pnpm build        # o site de verdade, em dist/ (é o que a Cloudflare publica)
 pnpm artefato     # um HTML único em artefato/, para compartilhar ou publicar como Artifact
+pnpm imagens      # refaz a prévia do link e os ícones, em public/
 ```
 
 São dois builds de propósito. O `build` (Vite) gera arquivos separados, com
@@ -23,8 +24,13 @@ junta tudo num arquivo só, que abre em qualquer lugar.
 
 ## Pôr no ar
 
-O site sobe pela Cloudflare Pages, ligada a este repositório: cada `git push`
-na `main` publica sozinho.
+O site está em **https://idea-dft.pages.dev**, publicado pela Cloudflare Pages,
+que está ligada a este repositório: cada `git push` na `main` publica sozinho.
+
+Cada deploy também ganha um endereço próprio, como
+`9f764895.idea-dft.pages.dev`. É uma cópia congelada daquele deploy, boa para
+comparar versões, e vem com `noindex` para o Google não indexar. O endereço
+para divulgar é sempre o sem número.
 
 | Campo | Valor |
 | --- | --- |
@@ -37,7 +43,26 @@ Antes de ligar, vale repetir o teste que um servidor de deploy faz: clonar o
 repositório numa pasta vazia e rodar `pnpm install --frozen-lockfile` e
 `pnpm build`. Os dois precisam terminar sem erro.
 
-## Antes de colocar no ar
+## Prévia do link e ícones
+
+Moram em `public/`, que o Vite copia para a raiz do site:
+
+| Arquivo | Para quê |
+| --- | --- |
+| `og.png` | a imagem da prévia do link (1200×630) |
+| `favicon.svg`, `favicon.ico` | o "i" da marca na aba do navegador |
+| `apple-touch-icon.png` | o ícone de quem salva o site na tela de início do iPhone |
+| `_headers` | o cache na Cloudflare: os arquivos de `/assets` ficam guardados por um ano |
+
+As imagens saem do `pnpm imagens` (`scripts/imagens.mjs`). A `og.png` é o
+`scripts/og.html` fotografado por um Chrome ou Edge sem janela, e os ícones
+são desenhados pixel a pixel. Se o título do hero ou a marca mudar, rode de
+novo e faça o commit das imagens.
+
+O WhatsApp guarda a prévia de cada link por um tempo. Para ver uma imagem
+nova, mande o link com algo no fim, como `https://idea-dft.pages.dev/?v=2`.
+
+## Lançamento
 
 - [x] **WhatsApp** em `src/config/contato.ts`.
 - [x] **Promessas** em `src/dados/metodo.ts`, revistas: entregas por etapa,
@@ -46,13 +71,15 @@ repositório numa pasta vazia e rodar `pnpm install --frozen-lockfile` e
       acompanhamento. Se alguma deixar de valer, mude lá antes de mudar na
       prática.
 - [x] **Laboratório**: a IVE fica, como "em desenvolvimento".
-- [ ] **Domínio** no registro.br e, se quiser, e-mail e Instagram no mesmo
-      `contato.ts`.
-- [ ] **Imagem de prévia do link** (`og:image`), para o link aparecer com
-      imagem no WhatsApp e no LinkedIn.
-- [ ] **Hospedagem**: Cloudflare Pages ligada ao GitHub, com o comando
+- [x] **Hospedagem**: Cloudflare Pages ligada ao GitHub, com o comando
       `pnpm build` e a pasta `dist`. O plano grátis da Vercel não permite uso
       comercial.
+- [x] **Endereço**: https://idea-dft.pages.dev. Um domínio próprio
+      (registro.br) continua possível: se vier, ligue ele no projeto da
+      Cloudflare e troque o endereço nas três linhas marcadas no `index.html`.
+- [x] **Imagem de prévia do link** (`og:image`), para o link aparecer com
+      imagem no WhatsApp e no LinkedIn.
+- [ ] **E-mail e Instagram** em `src/config/contato.ts`, quando existirem.
 
 ## Onde mexer
 
@@ -67,6 +94,9 @@ repositório numa pasta vazia e rodar `pnpm install --frozen-lockfile` e
 | Os ramos do formulário | `src/dados/ramos.ts` |
 | O texto da mensagem do WhatsApp | `src/lib/mensagem.ts` |
 | Cores, fontes, botões | `src/index.css` (tokens no `:root`, no topo) |
+| A imagem da prévia do link | `scripts/og.html`, depois `pnpm imagens` |
+| O favicon e o ícone do celular | `scripts/imagens.mjs`, depois `pnpm imagens` |
+| Título e descrição da prévia | `index.html` (as metas `og:`) |
 | Uma seção | `src/secoes/<Seção>.tsx` |
 | A ordem das seções | `src/App.tsx` |
 
@@ -133,6 +163,10 @@ no estado final.
   (`tsconfig.app.json`).
 - **Parcel precisa de `packageExports: true`** (no `package.json`) para achar
   arquivos internos do Radix.
+- **O Artifact tem entrada própria.** O `pnpm artefato` parte de
+  `scripts/artefato.html`, e não do `index.html`. O `index.html` aponta para
+  os ícones de `public/`, uma pasta que só o Vite conhece: o Parcel quebrava
+  procurando esses arquivos.
 - **pnpm 12 bloqueia scripts de instalação.** Os pacotes do Parcel (swc,
   lmdb, watcher, msgpackr) já vêm com binário pronto, e o
   `pnpm-workspace.yaml` nega os scripts deles de propósito. Sem essa decisão
@@ -147,6 +181,8 @@ no estado final.
 ## Estrutura
 
 ```
+public/                    prévia do link, ícones e o cache da Cloudflare
+scripts/                   o build do Artifact e o gerador das imagens
 src/
 ├── App.tsx                a ordem das seções
 ├── index.css              tokens da identidade e estilos dos componentes
