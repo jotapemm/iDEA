@@ -8,22 +8,39 @@
       name="description"
       content="A iDEA cria automações, sistemas web e aplicativos sob medida para empresas que cansaram de fazer na mão o que um software faria sozinho."
     />
+    <!-- O endereço oficial. Se um dia vier um domínio próprio, ele muda aqui
+         em três lugares: canonical, og:url e og:image. -->
+    <link rel="canonical" href="https://idea-dft.pages.dev/" />
+
+    <!-- A prévia do link no WhatsApp, LinkedIn, Facebook e X. A imagem sai de
+         scripts/og.html com `pnpm imagens`. O endereço dela precisa ser
+         completo, com https, ou o WhatsApp não mostra. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="iDEA." />
+    <meta property="og:url" content="https://idea-dft.pages.dev/" />
     <meta property="og:title" content="iDEA. | Ideias com ponto final" />
     <meta
       property="og:description"
       content="Automações, sistemas web e apps sob medida. Você conta como a rotina funciona; a gente entrega ela rodando sozinha."
     />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://idea-dft.pages.dev/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Trabalho repetido vira sistema. A marca iDEA. sobre um plano de pontos com o quadrado roxo."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <!-- Mesma cor do --fundo: é o que o navegador do celular pinta na barra. -->
     <meta name="theme-color" content="#050509" />
-    <!-- O "i" da marca: haste branca e o pingo quadrado roxo. Em data: URI para
-         não depender de pasta public/ em nenhum empacotador. -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050509'/%3E%3Crect x='13' y='13' width='6' height='14' fill='%23f2f2f7'/%3E%3Crect x='13' y='4' width='6' height='6' fill='%238257f5'/%3E%3C/svg%3E"
-    />
+    <!-- O "i" da marca, gerado por scripts/imagens.mjs. O .ico vem marcado
+         como 32x32 para o Chrome preferir o SVG; ele fica para navegador
+         antigo. O apple-touch-icon é o ícone na tela de início do iPhone. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

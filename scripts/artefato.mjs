@@ -23,11 +23,12 @@ import { join } from "node:path";
 
 const PASTA = "artefato";
 const BUILD = join(PASTA, "parcel");
-const html = readFileSync(join(BUILD, "index.html"), "utf8");
+// O Parcel parte de scripts/artefato.html, não do index.html do site.
+const html = readFileSync(join(BUILD, "artefato.html"), "utf8");
 
 const arquivo = (re, tipo) => {
   const m = html.match(re);
-  if (!m) throw new Error(`Não achei o ${tipo} do build em ${BUILD}/index.html`);
+  if (!m) throw new Error(`Não achei o ${tipo} do build em ${BUILD}/artefato.html`);
   return readFileSync(join(BUILD, m[1].replace(/^\//, "")), "utf8");
 };
 

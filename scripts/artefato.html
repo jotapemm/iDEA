@@ -1,0 +1,19 @@
+<!doctype html>
+<!--
+  A entrada do Parcel no `pnpm artefato`. Daqui só saem o JS e o CSS: o
+  scripts/artefato.mjs junta os dois num HTML só e escreve o cabeçalho do
+  Artifact ele mesmo.
+
+  O index.html é do site (Vite) e aponta para arquivos de public/, como os
+  ícones. O Parcel não conhece public/ e quebraria procurando esses arquivos,
+  por isso o Artifact tem esta entrada própria.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="../src/main.tsx"></script>
+  </body>
+</html>

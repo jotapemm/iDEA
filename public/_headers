@@ -1,0 +1,8 @@
+# Cabeçalhos da Cloudflare Pages. O Vite copia este arquivo para dist/.
+#
+# Os arquivos de /assets levam o conteúdo no nome (index-CO5hZIMt.js): se o
+# arquivo muda, o nome muda junto. Então o navegador pode guardar cada um por
+# um ano sem perguntar de novo, e a segunda visita abre sem baixar nada. O
+# index.html fica de fora, para toda visita ver a versão mais nova do site.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
