@@ -21,6 +21,22 @@ São dois builds de propósito. O `build` (Vite) gera arquivos separados, com
 cache bom, que é o que vai para o ar. O `artefato` (Parcel + scripts/artefato.mjs)
 junta tudo num arquivo só, que abre em qualquer lugar.
 
+## Pôr no ar
+
+O site sobe pela Cloudflare Pages, ligada a este repositório: cada `git push`
+na `main` publica sozinho.
+
+| Campo | Valor |
+| --- | --- |
+| Comando de build | `pnpm build` |
+| Pasta de saída | `dist` |
+| Node | o de `.node-version` (24) |
+| pnpm | o de `packageManager`, no `package.json` (12.21.0) |
+
+Antes de ligar, vale repetir o teste que um servidor de deploy faz: clonar o
+repositório numa pasta vazia e rodar `pnpm install --frozen-lockfile` e
+`pnpm build`. Os dois precisam terminar sem erro.
+
 ## Antes de colocar no ar
 
 - [x] **WhatsApp** em `src/config/contato.ts`.
@@ -118,8 +134,9 @@ no estado final.
 - **Parcel precisa de `packageExports: true`** (no `package.json`) para achar
   arquivos internos do Radix.
 - **pnpm 12 bloqueia scripts de instalação.** Os pacotes do Parcel (swc,
-  lmdb, watcher, msgpackr) já vêm com binário pronto para Windows, então não
-  é preciso aprovar nada.
+  lmdb, watcher, msgpackr) já vêm com binário pronto, e o
+  `pnpm-workspace.yaml` nega os scripts deles de propósito. Sem essa decisão
+  escrita, o `pnpm install` termina com erro num servidor de deploy.
 - **Teste visual com a aba escondida engana.** Navegador não roda
   `requestAnimationFrame` em aba oculta: o plano fica parado no caos do
   primeiro quadro. Não é bug.
