@@ -15,7 +15,7 @@ pnpm dev          # http://localhost:5173
 ```bash
 pnpm build        # o site de verdade, em dist/ (é o que a Cloudflare publica)
 pnpm artefato     # um HTML único em artefato/, para compartilhar ou publicar como Artifact
-pnpm imagens      # refaz a prévia do link e os ícones, em public/
+pnpm imagens      # refaz a prévia do link, os ícones e a arte do anúncio
 ```
 
 São dois builds de propósito. O `build` (Vite) gera arquivos separados, com
@@ -62,6 +62,20 @@ novo e faça o commit das imagens.
 O WhatsApp guarda a prévia de cada link por um tempo. Para ver uma imagem
 nova, mande o link com algo no fim, como `https://idea-dft.pages.dev/?v=2`.
 
+## Arte do anúncio
+
+A arte do anúncio de lançamento mora em `divulgacao/` e não entra no site:
+
+| Arquivo | Onde usar |
+| --- | --- |
+| `anuncio-feed.png` | post do Instagram e do LinkedIn (1080×1350) |
+| `anuncio-status.png` | status do WhatsApp e story do Instagram (1080×1920) |
+
+As duas saem do `scripts/anuncio.html`, no mesmo `pnpm imagens`. É a cena da
+prévia do link, em pé. No status, a arte termina pedindo resposta, porque quem
+responde um status cai direto na conversa. O alto e o pé do status ficam por
+baixo dos botões do aplicativo, então nada que precise ser lido mora ali.
+
 ## Lançamento
 
 - [x] **WhatsApp** em `src/config/contato.ts`.
@@ -95,6 +109,7 @@ nova, mande o link com algo no fim, como `https://idea-dft.pages.dev/?v=2`.
 | O texto da mensagem do WhatsApp | `src/lib/mensagem.ts` |
 | Cores, fontes, botões | `src/index.css` (tokens no `:root`, no topo) |
 | A imagem da prévia do link | `scripts/og.html`, depois `pnpm imagens` |
+| A arte do anúncio (feed e status) | `scripts/anuncio.html`, depois `pnpm imagens` |
 | O favicon e o ícone do celular | `scripts/imagens.mjs`, depois `pnpm imagens` |
 | Título e descrição da prévia | `index.html` (as metas `og:`) |
 | Uma seção | `src/secoes/<Seção>.tsx` |
@@ -181,8 +196,9 @@ no estado final.
 ## Estrutura
 
 ```
+divulgacao/                a arte do anúncio para as redes (fora do site)
 public/                    prévia do link, ícones e o cache da Cloudflare
-scripts/                   o build do Artifact e o gerador das imagens
+scripts/                   o build do Artifact, o gerador das imagens e o desenho delas
 src/
 ├── App.tsx                a ordem das seções
 ├── index.css              tokens da identidade e estilos dos componentes
