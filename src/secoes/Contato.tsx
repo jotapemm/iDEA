@@ -3,6 +3,7 @@ import { ArrowUpRight, Check, Copy, X } from "lucide-react";
 import { PontoFinal } from "@/componentes/PontoFinal";
 import { Revela } from "@/componentes/Revela";
 import { CONTATO } from "@/config/contato";
+import { PRIVACIDADE } from "@/config/empresa";
 import { RAMOS } from "@/dados/ramos";
 import { SINTOMAS } from "@/dados/sintomas";
 import { useConversa } from "@/estado/conversa";
@@ -202,6 +203,17 @@ export function Contato() {
               {copiado === "selecionado"
                 ? "O navegador não deixou copiar sozinho. O texto já está selecionado: use Ctrl+C."
                 : "Esta página não envia nada sozinha. O botão abre o WhatsApp com o texto pronto, e você decide se manda."}
+            </p>
+            {/* Em outra aba: quem clica aqui está no meio da mensagem. */}
+            <p className="mt-3 text-[14px]">
+              <a
+                href={PRIVACIDADE}
+                className="text-apagado underline decoration-linha-forte underline-offset-4 transition-colors hover:text-texto"
+                target="_blank"
+                rel="noopener"
+              >
+                Como a iDEA cuida dos seus dados
+              </a>
             </p>
             {CONTATO.email && (
               <p className="mt-3 text-[14px] text-apagado">
