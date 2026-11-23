@@ -106,9 +106,14 @@ mudou, o `pnpm video` deixa o vídeo como está, e o Git não ganha uns 15 MB
       comercial.
 - [x] **Endereço**: https://idea-dft.pages.dev. Um domínio próprio
       (registro.br) continua possível: se vier, ligue ele no projeto da
-      Cloudflare e troque o endereço nas três linhas marcadas no `index.html`.
+      Cloudflare e troque o endereço nas linhas marcadas do `index.html` e do
+      `privacidade.html`, e em `src/config/empresa.ts`.
 - [x] **Imagem de prévia do link** (`og:image`), para o link aparecer com
       imagem no WhatsApp e no LinkedIn.
+- [x] **Aviso de privacidade** em /privacidade, pedido pela LGPD, com link no
+      rodapé e junto do botão do WhatsApp.
+- [ ] **Razão social e CNPJ** em `src/config/empresa.ts`, quando a empresa
+      abrir. Aparecem no rodapé e no aviso de privacidade.
 - [ ] **E-mail e Instagram** em `src/config/contato.ts`, quando existirem.
 
 ## Onde mexer
@@ -116,6 +121,8 @@ mudou, o `pnpm video` deixa o vídeo como está, e o Git não ganha uns 15 MB
 | Quero mudar | Arquivo |
 | --- | --- |
 | WhatsApp, e-mail, Instagram | `src/config/contato.ts` |
+| Razão social, CNPJ e o endereço do site | `src/config/empresa.ts` |
+| O aviso de privacidade | `src/dados/privacidade.ts` |
 | Os sintomas do diagnóstico | `src/dados/sintomas.ts` |
 | O que a iDEA faz (as órbitas) | `src/dados/camadas.ts` |
 | O desenho das órbitas, em 3D | `src/componentes/telas/Orbitas.tsx` |
@@ -155,6 +162,16 @@ Nada sai do navegador sozinho. O botão do WhatsApp é um link `wa.me` com o
 texto no endereço, e quem decide enviar é a pessoa. A calculadora só entra na
 mensagem depois que a pessoa mexe nela: número que ela não escolheu não fala
 por ela.
+
+O aviso de privacidade (`src/dados/privacidade.ts`) descreve exatamente isso:
+o site não guarda nada, e só chega à iDEA o que a pessoa manda. Se um dia o
+site passar a guardar alguma coisa (um formulário que envia, uma ferramenta de
+estatística, um cookie), o aviso muda junto, antes de ir para o ar.
+
+Além da página principal, o site tem uma segunda: o aviso de privacidade, em
+/privacidade. Ela sai do `privacidade.html` e do `src/privacidade.tsx`, com o
+mesmo cabeçalho e o mesmo rodapé; o `vite.config.ts` diz ao build que são
+duas páginas.
 
 ## As cenas de pontos
 
@@ -213,6 +230,10 @@ no estado final.
   espera. Deixada para o Chrome, a faixa mudava com a placa de vídeo ligada
   ou não. Ao conferir a cor de um vídeo num Chrome sem placa de vídeo, o roxo
   parece menos azul: é um atalho de conta do Chrome nesse modo, não o arquivo.
+- **O link do aviso de privacidade é completo.** Ele usa o endereço inteiro do
+  site (`src/config/empresa.ts`) para funcionar também no Artifact, que roda
+  fora do domínio. No localhost, ele leva ao site no ar; para ver a página
+  local, abra `localhost:5173/privacidade.html`.
 
 ## Estrutura
 
@@ -222,8 +243,10 @@ public/                    prévia do link, ícones e o cache da Cloudflare
 scripts/                   o build do Artifact e o que desenha e gera as imagens e o vídeo
 src/
 ├── App.tsx                a ordem das seções
+├── privacidade.tsx        a segunda página: o aviso de privacidade
 ├── index.css              tokens da identidade e estilos dos componentes
 ├── config/contato.ts      o único lugar que sabe como falar com a iDEA
+├── config/empresa.ts      o endereço do site, a razão social e o CNPJ
 ├── dados/                 todo o texto da página
 ├── estado/                a conversa que atravessa a página
 ├── lib/                   mensagem, medidas da marca, formatação
