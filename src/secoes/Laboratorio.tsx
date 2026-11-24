@@ -6,10 +6,10 @@ import { useConversa } from "@/estado/conversa";
 import { seguirPonteiro } from "@/lib/seguirPonteiro";
 
 /**
- * Laboratório: os produtos próprios da iDEX.
+ * Laboratório: os produtos próprios da iPEX.
  *
  * É a prova que não depende de cliente nenhum. A IVE é da casa, então pode
- * ser mostrada inteira, e mostra do que a iDEX é capaz (um agente de IA que
+ * ser mostrada inteira, e mostra do que a iPEX é capaz (um agente de IA que
  * opera a tela) sem quebrar o sigilo de ninguém.
  *
  * A esfera é a mesma da landing da IVE: o produto é reconhecido pela imagem.
@@ -27,12 +27,12 @@ export function Laboratorio() {
             <PontoFinal />
           </h2>
           <p className="subtitulo mt-6">
-            Além dos projetos sob medida, a iDEX desenvolve produtos próprios. É onde as ideias são levadas
+            Além dos projetos sob medida, a iPEX desenvolve produtos próprios. É onde as ideias são levadas
             ao limite antes de chegarem aos clientes.
           </p>
           <p className="mt-5 max-w-[52ch] text-[16px] leading-relaxed text-fraco">
             O primeiro é a I.V.E, um modelo de IA que enxerga a tela e executa tarefas de escritório. Ela
-            nasceu resolvendo planilha, boleto e CNPJ, que é o tipo de trabalho que a iDEX automatiza todo
+            nasceu resolvendo planilha, boleto e CNPJ, que é o tipo de trabalho que a iPEX automatiza todo
             dia.
           </p>
         </Revela>
