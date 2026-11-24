@@ -31,7 +31,7 @@ export function Cabecalho({ inicio = "" }: { inicio?: string }) {
   return (
     <header className={`cabecalho ${rolou ? "rolou" : ""}`}>
       <div className="moldura flex h-[var(--cabecalho)] items-center justify-between gap-6">
-        <a href={`${inicio}#topo`} aria-label="iDEA, voltar ao topo" className="-my-2 py-2">
+        <a href={`${inicio}#topo`} aria-label="iDEX, voltar ao topo" className="-my-2 py-2">
           <Marca tamanho={23} />
         </a>
 
