@@ -1,7 +1,38 @@
-# iDEX. — manual da marca
+# iPEX. — manual da marca
 
 O que a marca é, como ela aparece e como ela fala. Toda página, proposta,
-post ou produto novo da iDEX parte daqui.
+post ou produto novo da iPEX parte daqui.
+
+## O nome
+
+**iPEX.** vem de *apex*, que é ápice em inglês: o ponto mais alto. É onde a
+ideia chega quando sai do papel e passa a funcionar sozinha.
+
+- O **i** minúsculo é de propósito. Ele puxa para o design e para a
+  tecnologia, como em iPhone, e é o "i" desenhado da logo, com o pingo
+  quadrado.
+- **PEX** vem em maiúsculas, com o topo na mesma altura do pingo.
+- O **ponto final** fecha o nome. Sem ele, não é a marca.
+
+No meio de uma frase, é "a iPEX" (a empresa), sem ponto: "a iPEX faz",
+"fale com a iPEX". O ponto aparece quando a marca está sozinha, como logo,
+título ou assinatura.
+
+O nome já foi iDEA e depois iDEX. Os dois já eram marcas de outras empresas,
+então ele mudou antes de a empresa abrir.
+
+**Registro.** Na pesquisa no INPI de 24/11/2026, não havia nenhuma marca IPEX
+registrada para software ou serviços de TI. O que existe perto:
+
+- IPEX, de uma indústria de plásticos, nas classes 20 e 35;
+- IPEX CONSTRUTORA, ainda em exame, inclusive na classe 42;
+- IPEXTREME, de uma empresa de tecnologia, nas classes 35, 38 e 42;
+- uma microempresa de assistência técnica que usa "IPEX TECNOLOGIA" desde
+  2020, sem marca registrada.
+
+No Brasil, a marca é de quem deposita primeiro. Por isso, a **iPEX.** precisa
+ser depositada na classe 42 (desenvolvimento de software e serviços de TI)
+antes de qualquer investimento em divulgação.
 
 ## A frase
 
@@ -9,21 +40,21 @@ post ou produto novo da iDEX parte daqui.
 
 Toda empresa tem ideias paradas: o relatório que deveria se montar sozinho,
 a planilha que deveria conversar com o sistema, o cliente que deveria ser
-avisado sem ninguém lembrar. A iDEX existe para colocar ponto final nelas,
+avisado sem ninguém lembrar. A iPEX existe para colocar ponto final nelas,
 ou seja, entregar funcionando.
 
 A frase também responde ao maior medo de quem contrata software: pagar por
-promessa. A iDEX vende a ideia **terminada**.
+promessa. A iPEX vende a ideia **terminada**.
 
 ## O símbolo: o ponto
 
-A marca é `iDEX.`, com duas peças quadradas e roxas:
+A marca é `iPEX.`, com duas peças quadradas e roxas:
 
 - o **pingo** do "i", que é a ideia no começo, a faísca;
 - o **ponto final**, que é a mesma ideia no fim, entregue.
 
 São a mesma peça em dois momentos. No rodapé do site, o ponto final da vez
-anterior cai e sai pela borda, e o pingo pula por cima do D, do E e do X até
+anterior cai e sai pela borda, e o pingo pula por cima do P, do E e do X até
 pousar no lugar dele: é a história da marca em menos de três segundos.
 
 O quadrado também é um pixel, a menor unidade de software. E ele veio da
@@ -31,7 +62,7 @@ logo da IVE, que já tinha o "i" com o pingo quadrado.
 
 **Construção do "i":** ele é desenhado, não digitado. A haste e o pingo têm a
 espessura da haste da fonte, e o "i" inteiro, do pé ao topo do pingo, tem a
-altura das maiúsculas: o topo do pingo alinha com o topo do D. O vão entre o
+altura das maiúsculas: o topo do pingo alinha com o topo do P. O vão entre o
 pingo e a haste é meia espessura.
 
 **Ícone:** onde a marca inteira não cabe (a aba do navegador, a tela de
@@ -49,13 +80,13 @@ foco do teclado. Todo o resto é branco sobre preto.
 | --- | --- |
 | **Para** | donos e gestores de pequenas e médias empresas, de qualquer ramo, com rotina administrativa pesada |
 | **Que** | perdem horas com tarefas repetidas entre planilhas, portais, PDFs, e-mails e sistemas que não conversam |
-| **A iDEX** | constrói automações sob medida e, quando precisa, o sistema web ou o app em volta delas |
+| **A iPEX** | constrói automações sob medida e, quando precisa, o sistema web ou o app em volta delas |
 | **Diferente de** | software pronto (que obriga a empresa a mudar o processo), agências (que vendem site) e ferramentas sem código (que não chegam em portal do governo, PDF e sistema antigo) |
 | **Porque** | começa pelo processo real, entrega em etapas curtas, tem preço fechado e sigilo, e o que é feito para o cliente fica com ele |
 
 ### Automação no centro
 
-A ordem do que a iDEX faz é uma hierarquia, não uma lista:
+A ordem do que a iPEX faz é uma hierarquia, não uma lista:
 
 1. **Automação**, o núcleo. Robôs que trabalham entre os sistemas.
 2. **Sistemas web**, a primeira órbita: quando a automação precisa de uma tela.
@@ -66,14 +97,14 @@ A ordem do que a iDEX faz é uma hierarquia, não uma lista:
 ### Por que não tem portfólio
 
 Projeto de cliente fica com o cliente. Em vez de vitrine, a página mostra
-**como a iDEX pensa** (as rotinas de exemplo do "Por dentro") e o que ela faz
+**como a iPEX pensa** (as rotinas de exemplo do "Por dentro") e o que ela faz
 para si mesma (o Laboratório). O sigilo é argumento de venda, não um buraco
 na página.
 
 ## Arquitetura
 
 ```
-iDEX.                    a casa: fala baixo (preto, branco, o ponto)
+iPEX.                    a casa: fala baixo (preto, branco, o ponto)
 ├── sob medida           automações, sistemas web, apps
 └── laboratório          produtos próprios
     └── I.V.E            produto 01: pode ser expressivo (o degradê roxo é dela)
