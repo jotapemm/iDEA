@@ -1,5 +1,5 @@
 /**
- * Quem é a iDEA no papel, e onde ela mora na internet.
+ * Quem é a iDEX no papel, e onde ela mora na internet.
  *
  * `site`: o endereço oficial, sem barra no fim. Os links para outras páginas
  * do site, como o aviso de privacidade, partem daqui, completos, para
