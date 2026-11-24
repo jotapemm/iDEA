@@ -4,8 +4,8 @@
  * O navegador arredonda a linha de base do TEXTO para o pixel mais próximo,
  * e arredonda as CAIXAS (a haste, o pingo e o ponto final) cada uma por conta
  * própria. Quando a marca cai numa posição fracionada, o que é comum com o
- * zoom em 90% ou com a escala do Windows em 125%, o D sobe ou desce meio
- * pixel e o pingo não vai junto: ele sai do alinhamento com o topo do D.
+ * zoom em 90% ou com a escala do Windows em 125%, o P sobe ou desce meio
+ * pixel e o pingo não vai junto: ele sai do alinhamento com o topo do P.
  *
  * A saída é deslocar a marca inteira pelo que falta para a linha de base
  * cair exatamente num pixel. Aí o arredondamento do texto não muda nada, e
