@@ -8,7 +8,7 @@
  * coisa (um formulário que envia, uma ferramenta de estatística, um cookie),
  * este texto muda junto, antes de ir para o ar. Mudou, troque a data.
  *
- * Os prazos daqui são promessas da iDEA: os 12 meses de guarda e os 15 dias
+ * Os prazos daqui são promessas da iDEX: os 12 meses de guarda e os 15 dias
  * de resposta precisam ser cumpridos de verdade. O porquê de cada frase está
  * na aba LGPD do doc da empresa.
  */
@@ -21,14 +21,14 @@ export type Bloco = {
   /** Um parágrafo depois dos itens. */
   fim?: string;
   link?: { rotulo: string; href: string };
-  /** O bloco que termina com o contato da iDEA (montado de config/). */
+  /** O bloco que termina com o contato da iDEX (montado de config/). */
   contato?: true;
 };
 
 export const ATUALIZADO = "23 de novembro de 2026";
 
 export const RESUMO =
-  "O site não guarda nada sobre você. O que chega para a iDEA é só o que você decide mandar pelo WhatsApp.";
+  "O site não guarda nada sobre você. O que chega para a iDEX é só o que você decide mandar pelo WhatsApp.";
 
 export const BLOCOS: Bloco[] = [
   {
@@ -39,7 +39,7 @@ export const BLOCOS: Bloco[] = [
     ],
   },
   {
-    titulo: "O que chega para a iDEA",
+    titulo: "O que chega para a iDEX",
     paragrafos: [
       "Só a mensagem que você envia pelo WhatsApp: o seu nome, a empresa, o ramo, o que você quer tirar das costas e o que deixou marcado na página. Junto vêm o seu número e o seu perfil do WhatsApp.",
       "Antes de enviar, você vê a mensagem inteira e pode mudar ou tirar o que quiser.",
@@ -65,20 +65,20 @@ export const BLOCOS: Bloco[] = [
   {
     titulo: "Por quanto tempo",
     paragrafos: [
-      "Os contatos ficam no WhatsApp e numa lista interna da iDEA, guardada num serviço online. Se a conversa não virar projeto, os seus dados saem da lista e a conversa é apagada em até 12 meses.",
+      "Os contatos ficam no WhatsApp e numa lista interna da iDEX, guardada num serviço online. Se a conversa não virar projeto, os seus dados saem da lista e a conversa é apagada em até 12 meses.",
     ],
   },
   {
     titulo: "Seus direitos",
     paragrafos: [
-      "Você pode perguntar se a iDEA tem dados seus, ver quais são, corrigir, apagar ou saber com quem eles foram compartilhados. É só mandar uma mensagem no WhatsApp: a resposta sai em até 15 dias.",
+      "Você pode perguntar se a iDEX tem dados seus, ver quais são, corrigir, apagar ou saber com quem eles foram compartilhados. É só mandar uma mensagem no WhatsApp: a resposta sai em até 15 dias.",
       "Se achar que o pedido não foi atendido, você pode reclamar na Autoridade Nacional de Proteção de Dados.",
     ],
     link: { rotulo: "gov.br/anpd", href: "https://www.gov.br/anpd/pt-br" },
   },
   {
     titulo: "Quem cuida dos seus dados",
-    paragrafos: ["A iDEA. Para qualquer pedido sobre os seus dados, fale com a gente:"],
+    paragrafos: ["A iDEX. Para qualquer pedido sobre os seus dados, fale com a gente:"],
     contato: true,
   },
 ];

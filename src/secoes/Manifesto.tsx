@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { PontoFinal } from "@/componentes/PontoFinal";
 
 const TEXTO =
-  "Toda empresa tem uma ideia parada. O relatório que deveria se montar sozinho. A planilha que deveria conversar com o sistema. O cliente que deveria ser avisado sem ninguém lembrar. A iDEA existe para colocar ponto final nelas";
+  "Toda empresa tem uma ideia parada. O relatório que deveria se montar sozinho. A planilha que deveria conversar com o sistema. O cliente que deveria ser avisado sem ninguém lembrar. A iDEX existe para colocar ponto final nelas";
 
 const PALAVRAS = TEXTO.split(" ");
 
@@ -80,7 +80,7 @@ export function Manifesto() {
     <section ref={trilho} className="manifesto-trilho border-t border-linha" aria-label="Manifesto">
       <div ref={palco} className="manifesto-palco secao">
         <div className="moldura">
-          <p className="rotulo">por que a iDEA existe</p>
+          <p className="rotulo">por que a iDEX existe</p>
           <p
             ref={texto}
             className="manifesto mt-10 max-w-[25ch]"

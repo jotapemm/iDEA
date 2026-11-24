@@ -29,7 +29,7 @@ export function montarMensagem(r: Rascunho): string {
 
   // "da empresa X" e não "da X": o artigo de "empresa" é sempre feminino,
   // e o nome da empresa pode ser de qualquer gênero.
-  let oi = "Olá, iDEA!";
+  let oi = "Olá, iDEX!";
   if (nome && empresa) oi += ` Aqui é ${nome}, da empresa ${empresa}.`;
   else if (nome) oi += ` Aqui é ${nome}.`;
   else if (empresa) oi += ` Escrevo pela empresa ${empresa}.`;
@@ -65,7 +65,7 @@ export function montarMensagem(r: Rascunho): string {
  * O link do WhatsApp com o texto pronto.
  *
  * Sem número configurado, `wa.me/?text=` abre o WhatsApp e deixa a pessoa
- * escolher o contato. Com número, vai direto para a conversa da iDEA.
+ * escolher o contato. Com número, vai direto para a conversa da iDEX.
  */
 export function linkWhatsApp(texto: string): string {
   const numero = CONTATO.whatsapp.replace(/\D/g, "");

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /*
- * Identidade da iDEA.
+ * Identidade da iDEX.
  *
  * Layout: um documento técnico em preto. Rótulos em mono na margem, títulos
  * grandes alinhados à esquerda, e um plano de pontos sangrando por baixo do
@@ -14,7 +14,7 @@
  * nos marcadores, no cursor do terminal e no foco do teclado. O resto é
  * branco sobre preto, que é a identidade que a IVE já tinha: ponto branco no
  * escuro. A IVE é um produto e pode ser expressiva (o degradê roxo animado é
- * dela); a iDEA é a casa, e fala mais baixo.
+ * dela); a iDEX é a casa, e fala mais baixo.
  *
  * A página é escura de propósito e só escura. Não há tema claro para manter.
  */
@@ -208,7 +208,7 @@
    * O ponto final dos títulos.
    *
    * Todo título afirmativo termina com o quadrado roxo no lugar do ponto da
-   * fonte. É a mesma peça do pingo do "i" e do ponto de "iDEA.": a ideia que
+   * fonte. É a mesma peça do pingo do "i" e do ponto de "iDEX.": a ideia que
    * começa no i e termina em ponto final. Um inline-block vazio pousa a
    * borda de baixo na linha de base, que é onde um ponto mora.
    */

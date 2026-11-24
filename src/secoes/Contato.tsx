@@ -212,7 +212,7 @@ export function Contato() {
                 target="_blank"
                 rel="noopener"
               >
-                Como a iDEA cuida dos seus dados
+                Como a iDEX cuida dos seus dados
               </a>
             </p>
             {CONTATO.email && (

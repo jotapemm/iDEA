@@ -1,5 +1,5 @@
 /**
- * Como um projeto anda, e o que o cliente pode cobrar da iDEA.
+ * Como um projeto anda, e o que o cliente pode cobrar da iDEX.
  *
  * ATENÇÃO: prazos e compromissos aqui são PROMESSAS públicas. Só deixe na
  * página o que você consegue cumprir sempre. Se "30 minutos, sem custo"
@@ -11,7 +11,7 @@
  * - O preço fechado vale para o que foi desenhado. Pedido novo no meio do
  *   caminho é desenhado e combinado antes de ser feito.
  * - Fica com o cliente o código feito para o projeto dele. As peças que a
- *   iDEA reaproveita entre clientes entram no contrato com licença de uso.
+ *   iDEX reaproveita entre clientes entram no contrato com licença de uso.
  *   E o ajuste depois de no ar é o plano de acompanhamento, a mensalidade.
  */
 export type Passo = { n: string; nome: string; texto: string };
