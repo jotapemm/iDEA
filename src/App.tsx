@@ -14,14 +14,14 @@ import { Sintomas } from "@/secoes/Sintomas";
 /**
  * A página, de cima para baixo. A ordem é o caminho de quem chega:
  *
- *   Hero           o que é a iDEA, numa frase
+ *   Hero           o que é a iDEX, numa frase
  *   Sintomas       "isso acontece aqui": a pessoa se reconhece
- *   Servicos       o que a iDEA faz (automação no centro)
+ *   Servicos       o que a iDEX faz (automação no centro)
  *   PorDentro      prova sem portfólio: uma rotina rodando
  *   Custo          o tamanho do problema, com os números dela
  *   Metodo         como funciona e o que ela pode cobrar
  *   Laboratorio    produtos próprios (a IVE)
- *   Manifesto      por que a iDEA existe
+ *   Manifesto      por que a iDEX existe
  *   Contato        a porta de entrada: tudo vira uma mensagem
  */
 export default function App() {
