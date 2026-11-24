@@ -24,7 +24,7 @@ export function Hero() {
           <PontoFinal />
         </h1>
         <p className="subtitulo mt-8">
-          A iDEX cria automações, sistemas web e aplicativos sob medida para empresas que cansaram de
+          A iPEX cria automações, sistemas web e aplicativos sob medida para empresas que cansaram de
           fazer na mão o que um software faria sozinho.
         </p>
         <div className="pointer-events-auto mt-10 flex flex-wrap gap-3">
