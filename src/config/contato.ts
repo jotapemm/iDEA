@@ -1,5 +1,5 @@
 /**
- * O único lugar que sabe como falar com a iDEX.
+ * O único lugar que sabe como falar com a iPEX.
  *
  * Troque aqui e a página inteira acompanha: o botão do formulário de contato
  * e o rodapé leem daqui.
