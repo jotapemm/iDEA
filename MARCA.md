@@ -1,7 +1,7 @@
-# iDEA. — manual da marca
+# iDEX. — manual da marca
 
 O que a marca é, como ela aparece e como ela fala. Toda página, proposta,
-post ou produto novo da iDEA parte daqui.
+post ou produto novo da iDEX parte daqui.
 
 ## A frase
 
@@ -9,21 +9,21 @@ post ou produto novo da iDEA parte daqui.
 
 Toda empresa tem ideias paradas: o relatório que deveria se montar sozinho,
 a planilha que deveria conversar com o sistema, o cliente que deveria ser
-avisado sem ninguém lembrar. A iDEA existe para colocar ponto final nelas,
+avisado sem ninguém lembrar. A iDEX existe para colocar ponto final nelas,
 ou seja, entregar funcionando.
 
 A frase também responde ao maior medo de quem contrata software: pagar por
-promessa. A iDEA vende a ideia **terminada**.
+promessa. A iDEX vende a ideia **terminada**.
 
 ## O símbolo: o ponto
 
-A marca é `iDEA.`, com duas peças quadradas e roxas:
+A marca é `iDEX.`, com duas peças quadradas e roxas:
 
 - o **pingo** do "i", que é a ideia no começo, a faísca;
 - o **ponto final**, que é a mesma ideia no fim, entregue.
 
 São a mesma peça em dois momentos. No rodapé do site, o ponto final da vez
-anterior cai e sai pela borda, e o pingo pula por cima do D, do E e do A até
+anterior cai e sai pela borda, e o pingo pula por cima do D, do E e do X até
 pousar no lugar dele: é a história da marca em menos de três segundos.
 
 O quadrado também é um pixel, a menor unidade de software. E ele veio da
@@ -49,13 +49,13 @@ foco do teclado. Todo o resto é branco sobre preto.
 | --- | --- |
 | **Para** | donos e gestores de pequenas e médias empresas, de qualquer ramo, com rotina administrativa pesada |
 | **Que** | perdem horas com tarefas repetidas entre planilhas, portais, PDFs, e-mails e sistemas que não conversam |
-| **A iDEA** | constrói automações sob medida e, quando precisa, o sistema web ou o app em volta delas |
+| **A iDEX** | constrói automações sob medida e, quando precisa, o sistema web ou o app em volta delas |
 | **Diferente de** | software pronto (que obriga a empresa a mudar o processo), agências (que vendem site) e ferramentas sem código (que não chegam em portal do governo, PDF e sistema antigo) |
 | **Porque** | começa pelo processo real, entrega em etapas curtas, tem preço fechado e sigilo, e o que é feito para o cliente fica com ele |
 
 ### Automação no centro
 
-A ordem do que a iDEA faz é uma hierarquia, não uma lista:
+A ordem do que a iDEX faz é uma hierarquia, não uma lista:
 
 1. **Automação**, o núcleo. Robôs que trabalham entre os sistemas.
 2. **Sistemas web**, a primeira órbita: quando a automação precisa de uma tela.
@@ -66,14 +66,14 @@ A ordem do que a iDEA faz é uma hierarquia, não uma lista:
 ### Por que não tem portfólio
 
 Projeto de cliente fica com o cliente. Em vez de vitrine, a página mostra
-**como a iDEA pensa** (as rotinas de exemplo do "Por dentro") e o que ela faz
+**como a iDEX pensa** (as rotinas de exemplo do "Por dentro") e o que ela faz
 para si mesma (o Laboratório). O sigilo é argumento de venda, não um buraco
 na página.
 
 ## Arquitetura
 
 ```
-iDEA.                    a casa: fala baixo (preto, branco, o ponto)
+iDEX.                    a casa: fala baixo (preto, branco, o ponto)
 ├── sob medida           automações, sistemas web, apps
 └── laboratório          produtos próprios
     └── I.V.E            produto 01: pode ser expressivo (o degradê roxo é dela)

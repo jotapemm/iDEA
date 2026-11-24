@@ -1,6 +1,6 @@
-# iDEA. — página principal
+# iDEX. — página principal
 
-A porta de entrada da iDEA: automações, sistemas web e apps sob medida.
+A porta de entrada da iDEX: automações, sistemas web e apps sob medida.
 
 A marca, a voz e as regras visuais estão em [MARCA.md](MARCA.md). Este
 arquivo explica o código.
@@ -124,7 +124,7 @@ mudou, o `pnpm video` deixa o vídeo como está, e o Git não ganha uns 15 MB
 | Razão social, CNPJ e o endereço do site | `src/config/empresa.ts` |
 | O aviso de privacidade | `src/dados/privacidade.ts` |
 | Os sintomas do diagnóstico | `src/dados/sintomas.ts` |
-| O que a iDEA faz (as órbitas) | `src/dados/camadas.ts` |
+| O que a iDEX faz (as órbitas) | `src/dados/camadas.ts` |
 | O desenho das órbitas, em 3D | `src/componentes/telas/Orbitas.tsx` |
 | As rotinas do terminal | `src/dados/cenarios.ts` |
 | Passos do método e compromissos | `src/dados/metodo.ts` |
@@ -164,7 +164,7 @@ mensagem depois que a pessoa mexe nela: número que ela não escolheu não fala
 por ela.
 
 O aviso de privacidade (`src/dados/privacidade.ts`) descreve exatamente isso:
-o site não guarda nada, e só chega à iDEA o que a pessoa manda. Se um dia o
+o site não guarda nada, e só chega à iDEX o que a pessoa manda. Se um dia o
 site passar a guardar alguma coisa (um formulário que envia, uma ferramenta de
 estatística, um cookie), o aviso muda junto, antes de ir para o ar.
 
@@ -245,7 +245,7 @@ src/
 ├── App.tsx                a ordem das seções
 ├── privacidade.tsx        a segunda página: o aviso de privacidade
 ├── index.css              tokens da identidade e estilos dos componentes
-├── config/contato.ts      o único lugar que sabe como falar com a iDEA
+├── config/contato.ts      o único lugar que sabe como falar com a iDEX
 ├── config/empresa.ts      o endereço do site, a razão social e o CNPJ
 ├── dados/                 todo o texto da página
 ├── estado/                a conversa que atravessa a página
