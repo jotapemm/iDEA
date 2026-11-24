@@ -51,7 +51,7 @@ const corpo = `<style>${css}</style>
 // e a meta que promete calha lateral com safe-area (ver .moldura no CSS).
 writeFileSync(
   join(PASTA, "idea.html"),
-  `<title>iDEA.</title>
+  `<title>iDEX.</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#050509">
 ${fontes}
@@ -66,7 +66,7 @@ writeFileSync(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>iDEA. | Automações, sistemas web e apps sob medida</title>
+<title>iDEX. | Automações, sistemas web e apps sob medida</title>
 <meta name="theme-color" content="#050509">
 ${icone}
 ${fontes}
