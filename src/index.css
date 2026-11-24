@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /*
- * Identidade da iDEX.
+ * Identidade da iPEX.
  *
  * Layout: um documento técnico em preto. Rótulos em mono na margem, títulos
  * grandes alinhados à esquerda, e um plano de pontos sangrando por baixo do
@@ -14,7 +14,7 @@
  * nos marcadores, no cursor do terminal e no foco do teclado. O resto é
  * branco sobre preto, que é a identidade que a IVE já tinha: ponto branco no
  * escuro. A IVE é um produto e pode ser expressiva (o degradê roxo animado é
- * dela); a iDEX é a casa, e fala mais baixo.
+ * dela); a iPEX é a casa, e fala mais baixo.
  *
  * A página é escura de propósito e só escura. Não há tema claro para manter.
  */
@@ -44,7 +44,7 @@
   /* Valores de reserva. src/lib/medirMarca.ts mede a fonte de verdade e
      reescreve estes quatro, então o pingo tem exatamente a espessura da
      haste do "i" mesmo se a fonte mudar ou cair no fallback. */
-  --i-cap: 0.69em; /* altura das maiúsculas: o topo do D e o do pingo */
+  --i-cap: 0.69em; /* altura das maiúsculas: o topo do P e o do pingo */
   --i-haste: 0.17em; /* espessura da haste = lado do pingo */
   --i-esq: 0.05em; /* lateral vazia à esquerda do glifo */
   --i-avanco: 0.27em; /* quanto o glifo empurra o próximo */
@@ -208,7 +208,7 @@
    * O ponto final dos títulos.
    *
    * Todo título afirmativo termina com o quadrado roxo no lugar do ponto da
-   * fonte. É a mesma peça do pingo do "i" e do ponto de "iDEX.": a ideia que
+   * fonte. É a mesma peça do pingo do "i" e do ponto de "iPEX.": a ideia que
    * começa no i e termina em ponto final. Um inline-block vazio pousa a
    * borda de baixo na linha de base, que é onde um ponto mora.
    */
@@ -238,11 +238,11 @@
    * com a espessura da haste do "ı" da fonte (medida em lib/medirMarca.ts).
    * Desenhado, ele pode ter a altura que a marca pede: do pé da haste ao
    * topo do pingo, a altura das maiúsculas. O topo do pingo alinha com o
-   * topo do D, e o vão entre os dois é meia espessura, a mesma proporção do
+   * topo do P, e o vão entre os dois é meia espessura, a mesma proporção do
    * favicon.
    *
    * A haste repete o espaço do glifo da fonte (a lateral vazia à esquerda e
-   * o avanço), então a distância até o D é a mesma da tipografia. O pingo
+   * o avanço), então a distância até o P é a mesma da tipografia. O pingo
    * volta para cima da haste com margem negativa, e `vertical-align` com
    * comprimento sobe a base dele até a altura certa.
    */
