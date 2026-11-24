@@ -36,7 +36,7 @@ export function navegador() {
  * perfil é descartável, como nas fotos, e some no `fechar()`.
  */
 export function conectar() {
-  const perfil = mkdtempSync(join(tmpdir(), "idea-navegador-"));
+  const perfil = mkdtempSync(join(tmpdir(), "ipex-navegador-"));
   const proc = spawn(
     navegador(),
     [
