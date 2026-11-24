@@ -148,7 +148,7 @@ function Terminal({ cenario }: { cenario: Cenario }) {
 }
 
 /**
- * Por dentro: o lugar do portfólio que a iDEX não mostra.
+ * Por dentro: o lugar do portfólio que a iPEX não mostra.
  *
  * Projeto de cliente não vira vitrine. Em vez disso, a pessoa escolhe o ramo
  * dela e vê uma rotina típica rodando sozinha, com hora, decisão e
