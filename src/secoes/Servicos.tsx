@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CAMADAS, type IdCamada } from "@/dados/camadas";
 
 /**
- * O que a iDEX faz, desenhado como um sistema de órbitas em 3D.
+ * O que a iPEX faz, desenhado como um sistema de órbitas em 3D.
  *
  * O desenho É a hierarquia: automação no centro (e o centro é o cubo roxo),
  * sistemas web na primeira órbita, apps na segunda, e a IA numa órbita
@@ -50,7 +50,7 @@ export function Servicos() {
 
           <Revela atraso={120}>
             <Tabs value={ativo} onValueChange={(v) => setAtivo(v as IdCamada)} orientation="vertical">
-              <TabsList aria-label="Camadas do que a iDEX faz" className="flex-col">
+              <TabsList aria-label="Camadas do que a iPEX faz" className="flex-col">
                 {CAMADAS.map((c) => (
                   <TabsTrigger key={c.id} value={c.id} className="camada-aba">
                     <span className="flex items-center text-[19px] font-semibold tracking-[-0.01em]">
