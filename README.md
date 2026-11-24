@@ -1,6 +1,6 @@
-# iDEX. — página principal
+# iPEX. — página principal
 
-A porta de entrada da iDEX: automações, sistemas web e apps sob medida.
+A porta de entrada da iPEX: automações, sistemas web e apps sob medida.
 
 A marca, a voz e as regras visuais estão em [MARCA.md](MARCA.md). Este
 arquivo explica o código.
@@ -107,7 +107,15 @@ mudou, o `pnpm video` deixa o vídeo como está, e o Git não ganha uns 15 MB
 - [x] **Endereço**: https://idea-dft.pages.dev. Um domínio próprio
       (registro.br) continua possível: se vier, ligue ele no projeto da
       Cloudflare e troque o endereço nas linhas marcadas do `index.html` e do
-      `privacidade.html`, e em `src/config/empresa.ts`.
+      `privacidade.html`, em `src/config/empresa.ts` e no
+      `scripts/anuncio.html`.
+- [ ] **Marca no INPI**: depositar a **iPEX.** na classe 42. A pesquisa que
+      deixou o nome de pé está em [MARCA.md](MARCA.md#o-nome).
+- [ ] **Endereço com o nome novo.** O `idea-dft` ainda é do nome antigo, e o
+      endereço da Cloudflare não muda depois de criado (o `ipex.pages.dev` já
+      tem dono). O caminho é um domínio próprio. Em 24/11/2026, o `ipex.com.br`
+      e o `ipex.tec.br` já tinham dono, e estavam livres o `ipex.dev.br`, o
+      `ipex.app.br` e o `ipex.ia.br`.
 - [x] **Imagem de prévia do link** (`og:image`), para o link aparecer com
       imagem no WhatsApp e no LinkedIn.
 - [x] **Aviso de privacidade** em /privacidade, pedido pela LGPD, com link no
@@ -124,7 +132,7 @@ mudou, o `pnpm video` deixa o vídeo como está, e o Git não ganha uns 15 MB
 | Razão social, CNPJ e o endereço do site | `src/config/empresa.ts` |
 | O aviso de privacidade | `src/dados/privacidade.ts` |
 | Os sintomas do diagnóstico | `src/dados/sintomas.ts` |
-| O que a iDEX faz (as órbitas) | `src/dados/camadas.ts` |
+| O que a iPEX faz (as órbitas) | `src/dados/camadas.ts` |
 | O desenho das órbitas, em 3D | `src/componentes/telas/Orbitas.tsx` |
 | As rotinas do terminal | `src/dados/cenarios.ts` |
 | Passos do método e compromissos | `src/dados/metodo.ts` |
@@ -164,7 +172,7 @@ mensagem depois que a pessoa mexe nela: número que ela não escolheu não fala
 por ela.
 
 O aviso de privacidade (`src/dados/privacidade.ts`) descreve exatamente isso:
-o site não guarda nada, e só chega à iDEX o que a pessoa manda. Se um dia o
+o site não guarda nada, e só chega à iPEX o que a pessoa manda. Se um dia o
 site passar a guardar alguma coisa (um formulário que envia, uma ferramenta de
 estatística, um cookie), o aviso muda junto, antes de ir para o ar.
 
@@ -198,13 +206,13 @@ no estado final.
 - **Nada fica invisível esperando animação.** O `<Revela>` só anima blocos que
   ainda estão FORA da tela; o estado de repouso é sempre visível. Miniatura de
   link, leitor de tela e navegador sem JS veem o texto inteiro.
-- **O "i" da logo é desenhado.** `src/lib/medirMarca.ts` mede o "ı" e o "D"
+- **O "i" da logo é desenhado.** `src/lib/medirMarca.ts` mede o "ı" e o "P"
   da Archivo: a haste e o pingo saem com a espessura da haste da fonte, e o
-  "i" inteiro, do pé ao topo do pingo, fica com a altura do D. Tudo em `em`,
+  "i" inteiro, do pé ao topo do pingo, fica com a altura do P. Tudo em `em`,
   para valer em qualquer tamanho.
 - **A marca acerta o pixel.** O navegador arredonda a linha de base do texto
   e as caixas da marca (haste, pingo, ponto) cada uma por conta própria. Com
-  zoom de 90%, o pingo saía do topo do D. `src/lib/baseNoPixel.ts` desloca a
+  zoom de 90%, o pingo saía do topo do P. `src/lib/baseNoPixel.ts` desloca a
   marca inteira pela fração que falta para a linha de base cair num pixel
   exato.
 - **TypeScript 7 não aceita `baseUrl`.** O alias `@/` funciona só com `paths`
@@ -245,7 +253,7 @@ src/
 ├── App.tsx                a ordem das seções
 ├── privacidade.tsx        a segunda página: o aviso de privacidade
 ├── index.css              tokens da identidade e estilos dos componentes
-├── config/contato.ts      o único lugar que sabe como falar com a iDEX
+├── config/contato.ts      o único lugar que sabe como falar com a iPEX
 ├── config/empresa.ts      o endereço do site, a razão social e o CNPJ
 ├── dados/                 todo o texto da página
 ├── estado/                a conversa que atravessa a página
