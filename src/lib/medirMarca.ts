@@ -3,11 +3,11 @@
  *
  * O "i" da logo é desenhado (ver .marca-haste no CSS): uma haste e um pingo
  * quadrado com EXATAMENTE a espessura da haste do "ı" da fonte, e altura
- * total igual à do D. Chumbar "0,17em" funciona com uma fonte e quebra com
+ * total igual à do P. Chumbar "0,17em" funciona com uma fonte e quebra com
  * outra; então medimos, como a logo da IVE já fazia.
  *
  * Do "ı" saem a espessura da haste, a lateral vazia à esquerda e o avanço
- * (para o i desenhado ocupar o mesmo espaço do glifo). Do "D" sai a altura
+ * (para o i desenhado ocupar o mesmo espaço do glifo). Do "P" sai a altura
  * das maiúsculas, onde o topo do pingo alinha.
  *
  * Mede uma vez, a 100px, e grava em `em`. Como tudo na marca é relativo ao
@@ -25,7 +25,7 @@ function medir(): boolean {
   // O peso entra na conta: a marca usa 800, e 800 tem haste mais grossa.
   ctx.font = `800 ${TAMANHO}px ${familia}`;
   const m = ctx.measureText("ı");
-  const cap = ctx.measureText("D").actualBoundingBoxAscent;
+  const cap = ctx.measureText("P").actualBoundingBoxAscent;
 
   // actualBoundingBoxLeft é positivo para a ESQUERDA da origem; a lateral
   // vazia do glifo é o oposto disso.
