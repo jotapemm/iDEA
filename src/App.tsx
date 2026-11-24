@@ -14,14 +14,14 @@ import { Sintomas } from "@/secoes/Sintomas";
 /**
  * A página, de cima para baixo. A ordem é o caminho de quem chega:
  *
- *   Hero           o que é a iDEX, numa frase
+ *   Hero           o que é a iPEX, numa frase
  *   Sintomas       "isso acontece aqui": a pessoa se reconhece
- *   Servicos       o que a iDEX faz (automação no centro)
+ *   Servicos       o que a iPEX faz (automação no centro)
  *   PorDentro      prova sem portfólio: uma rotina rodando
  *   Custo          o tamanho do problema, com os números dela
  *   Metodo         como funciona e o que ela pode cobrar
  *   Laboratorio    produtos próprios (a IVE)
- *   Manifesto      por que a iDEX existe
+ *   Manifesto      por que a iPEX existe
  *   Contato        a porta de entrada: tudo vira uma mensagem
  */
 export default function App() {
