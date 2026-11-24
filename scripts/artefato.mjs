@@ -7,7 +7,7 @@
  *
  *   bundle.html   página completa e autossuficiente (abre com dois cliques,
  *                 manda por e-mail, sobe em qualquer lugar)
- *   idea.html     o mesmo conteúdo SEM <html>/<head>/<body>, que é o formato
+ *   ipex.html     o mesmo conteúdo SEM <html>/<head>/<body>, que é o formato
  *                 que o Artifact do Claude pede (ele mesmo põe o esqueleto)
  *
  * Por que não o html-inline da skill: ele tenta embutir TODO <link>, inclusive
@@ -50,8 +50,8 @@ const corpo = `<style>${css}</style>
 // O fragmento do Artifact: título primeiro (ele só lê os primeiros 8 KB),
 // e a meta que promete calha lateral com safe-area (ver .moldura no CSS).
 writeFileSync(
-  join(PASTA, "idea.html"),
-  `<title>iDEX.</title>
+  join(PASTA, "ipex.html"),
+  `<title>iPEX.</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#050509">
 ${fontes}
@@ -66,7 +66,7 @@ writeFileSync(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>iDEX. | Automações, sistemas web e apps sob medida</title>
+<title>iPEX. | Automações, sistemas web e apps sob medida</title>
 <meta name="theme-color" content="#050509">
 ${icone}
 ${fontes}
@@ -79,4 +79,4 @@ ${corpo}
 );
 
 const kb = (s) => `${(Buffer.byteLength(s) / 1024).toFixed(0)} KB`;
-console.log(`artefato/idea.html e artefato/bundle.html prontos (JS ${kb(js)}, CSS ${kb(css)})`);
+console.log(`artefato/ipex.html e artefato/bundle.html prontos (JS ${kb(js)}, CSS ${kb(css)})`);
