@@ -2,7 +2,7 @@
  * A marca grande do rodapé, contando a própria história.
  *
  * Primeiro o ponto final da vez anterior cai e sai pela borda de baixo: a
- * ideia entregue sai de cena. Aí o pingo sai do "i", pula por cima do D, do
+ * ideia entregue sai de cena. Aí o pingo sai do "i", pula por cima do P, do
  * E e do X, e pousa no fim como o novo ponto final, enquanto um pingo novo
  * nasce no "i". É a frase da marca em menos de três segundos: a ideia
  * começa num ponto, termina em ponto final, e a próxima já está nascendo.
@@ -72,7 +72,7 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
     if (!ctx) return;
     const cs = getComputedStyle(r);
     ctx.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
-    const topo = F.bottom - ctx.measureText("D").actualBoundingBoxAscent;
+    const topo = F.bottom - ctx.measureText("P").actualBoundingBoxAscent;
 
     const inicio = { x: P.left, y: P.top };
     const paradas = letras.current
@@ -173,13 +173,13 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
       className={`marca relative cursor-default select-none ${className}`}
       style={{ fontSize: tamanho }}
       role="img"
-      aria-label="iDEX."
+      aria-label="iPEX."
       onPointerEnter={lancar}
       onClick={lancar}
     >
       <span className="marca-haste" aria-hidden="true" />
       <span ref={pingo} className="marca-pingo" aria-hidden="true" />
-      {["D", "E", "X"].map((l, i) => (
+      {["P", "E", "X"].map((l, i) => (
         <span
           key={l}
           aria-hidden="true"
