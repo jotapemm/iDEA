@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { alinharBaseAoPixel } from "@/lib/baseNoPixel";
 
 /**
- * A marca: iDEA.
+ * A marca: iDEX.
  *
  * Duas peças quadradas e roxas, iguais: o PINGO do "i" e o PONTO final. São
  * a mesma ideia em dois momentos. No começo ela é a faísca em cima do "i";
@@ -28,11 +28,11 @@ export function Marca({ tamanho = 22, className = "" }: { tamanho?: number | str
       className={`marca relative ${className}`}
       style={{ fontSize: typeof tamanho === "number" ? `${tamanho}px` : tamanho }}
       role="img"
-      aria-label="iDEA."
+      aria-label="iDEX."
     >
       <span className="marca-haste" aria-hidden="true" />
       <span className="marca-pingo" aria-hidden="true" />
-      <span aria-hidden="true">DEA</span>
+      <span aria-hidden="true">DEX</span>
       <span className="marca-ponto" aria-hidden="true" />
     </span>
   );
