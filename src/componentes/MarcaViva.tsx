@@ -3,7 +3,7 @@
  *
  * Primeiro o ponto final da vez anterior cai e sai pela borda de baixo: a
  * ideia entregue sai de cena. Aí o pingo sai do "i", pula por cima do D, do
- * E e do A, e pousa no fim como o novo ponto final, enquanto um pingo novo
+ * E e do X, e pousa no fim como o novo ponto final, enquanto um pingo novo
  * nasce no "i". É a frase da marca em menos de três segundos: a ideia
  * começa num ponto, termina em ponto final, e a próxima já está nascendo.
  *
@@ -173,13 +173,13 @@ export function MarcaViva({ tamanho, className = "" }: { tamanho: string; classN
       className={`marca relative cursor-default select-none ${className}`}
       style={{ fontSize: tamanho }}
       role="img"
-      aria-label="iDEA."
+      aria-label="iDEX."
       onPointerEnter={lancar}
       onClick={lancar}
     >
       <span className="marca-haste" aria-hidden="true" />
       <span ref={pingo} className="marca-pingo" aria-hidden="true" />
-      {["D", "E", "A"].map((l, i) => (
+      {["D", "E", "X"].map((l, i) => (
         <span
           key={l}
           aria-hidden="true"
