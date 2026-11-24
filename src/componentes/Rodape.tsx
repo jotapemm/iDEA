@@ -82,7 +82,7 @@ export function Rodape({ inicio = "" }: { inicio?: string }) {
 
         <div className="mt-14 flex flex-wrap justify-between gap-4 font-mono text-[12px] text-apagado">
           <span>
-            © {ANO} iDEA.
+            © {ANO} iDEX.
             {EMPRESA.razaoSocial && ` · ${EMPRESA.razaoSocial}`}
             {EMPRESA.cnpj && ` · CNPJ ${EMPRESA.cnpj}`}
           </span>
