@@ -49,7 +49,7 @@ const PONTO = [0x82, 0x57, 0xf5];
 /*
  * O "i" em cada tamanho, em pixels inteiros. As proporções são as da marca
  * (ver MARCA.md): o pingo tem a espessura da haste, o vão é meia espessura e
- * o "i" inteiro tem a altura do D, umas 3,8 espessuras. Em tamanho pequeno a
+ * o "i" inteiro tem a altura do P, umas 3,8 espessuras. Em tamanho pequeno a
  * conta não fecha em pixel inteiro, então cada tamanho foi acertado à mão
  * para ficar nítido, sem borda borrada.
  *
@@ -147,7 +147,7 @@ function svg() {
  * `busca` vai no fim do endereço, como o "?formato=status" do anúncio.
  */
 function fotografar(html, saida, larg, alt, busca = "") {
-  const perfil = mkdtempSync(join(tmpdir(), "idea-imagens-"));
+  const perfil = mkdtempSync(join(tmpdir(), "ipex-imagens-"));
   try {
     execFileSync(
       navegador(),
