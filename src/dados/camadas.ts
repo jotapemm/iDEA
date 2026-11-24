@@ -1,5 +1,5 @@
 /**
- * O que a iDEA faz, em camadas.
+ * O que a iDEX faz, em camadas.
  *
  * A ordem é a hierarquia do negócio: automação é o núcleo, e sistemas web e
  * apps orbitam em volta dela. IA não é uma camada: ela atravessa as três, e
